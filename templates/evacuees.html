@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fa-solid fa-users"></i> Evacuee Directory</h1>
+    <p>Track displaced individuals across all registered shelters.</p>
+</div>
+
+<div class="glass-panel" style="padding: 20px;">
+    <div class="section-header" style="margin-bottom: 20px; padding: 0; border: none;">
+        <h3>Registered Evacuees</h3>
+        <button class="btn btn-outline" style="background: var(--accent-primary); border: none;" onclick="document.getElementById('addEvacueeForm').style.display='block'"><i class="fa-solid fa-user-plus"></i> Register Evacuee</button>
+    </div>
+
+    <!-- Register Evacuee Form -->
+    <div id="addEvacueeForm" style="display: none; background: rgba(15,23,42,0.8); padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid var(--glass-border);">
+        <h4 style="margin-bottom: 15px;">Register Evacuee</h4>
+        <form method="POST" action="{{ url_for('evacuees') }}" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div><label>Name:</label><br><input type="text" name="name" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
+            <div><label>Age:</label><br><input type="number" name="age" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
+            <div><label>Gender:</label><br>
+                <select name="gender" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: var(--bg-secondary); color: white;">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div><label>Home District:</label><br><input type="text" name="home_district" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
+            <div><label>Assign Shelter:</label><br>
+                <select name="shelter_id" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: var(--bg-secondary); color: white;">
+                    {% for s in shelters %}
+                    <option value="{{ s.id }}">{{ s.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div><label>Health Status:</label><br>
+                <select name="health_status" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: var(--bg-secondary); color: white;">
+                    <option value="healthy">Healthy</option>
+                    <option value="recovering">Recovering</option>
+                    <option value="injured">Injured</option>
+                    <option value="critical">Critical</option>
+                </select>
+            </div>
+            <div style="grid-column: 1 / -1; display: flex; gap: 10px; margin-top: 10px;">
+                <button type="submit" class="btn" style="background: var(--accent-primary); color: white;">Register</button>
+                <button type="button" class="btn btn-outline" onclick="document.getElementById('addEvacueeForm').style.display='none'">Cancel</button>
+            </div>
+        </form>
+    </div>
+    
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 1px solid var(--glass-border); color: var(--text-secondary);">
+                    <th style="padding: 12px;">ID</th>
+                    <th style="padding: 12px;">Name</th>
+                    <th style="padding: 12px;">Age/Gender</th>
+                    <th style="padding: 12px;">Current Shelter</th>
+                    <th style="padding: 12px;">Home District</th>
+                    <th style="padding: 12px;">Health Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in evacuees %}
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 16px 12px; color: var(--text-secondary);">#{{ e.id }}</td>
+                    <td style="padding: 16px 12px; font-weight: 600;">{{ e.name }}</td>
+                    <td style="padding: 16px 12px;">{{ e.age }} / {{ e.gender|capitalize }}</td>
+                    <td style="padding: 16px 12px; color: var(--accent-primary);">{{ e.shelter_name }}</td>
+                    <td style="padding: 16px 12px;">{{ e.home_district }}</td>
+                    <td style="padding: 16px 12px;">
+                        <span class="badge-{% if e.health_status == 'healthy' %}low{% elif e.health_status == 'recovering' %}moderate{% else %}high{% endif %}" style="display: inline-block; padding: 6px 12px;">
+                            <i class="fa-solid fa-heart-pulse"></i> {{ e.health_status|capitalize }}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

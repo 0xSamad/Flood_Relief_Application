@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fa-solid fa-hand-holding-heart"></i> Relief Requests</h1>
+    <p>Manage supply requests between shelters and NGOs.</p>
+</div>
+
+<div class="glass-panel" style="padding: 20px;">
+    <div class="section-header" style="margin-bottom: 20px; padding: 0; border: none;">
+        <h3>Active Requests</h3>
+        <button class="btn btn-outline" style="background: var(--accent-primary); border: none;"><i class="fa-solid fa-clipboard-list"></i> Create Request</button>
+    </div>
+    
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 1px solid var(--glass-border); color: var(--text-secondary);">
+                    <th style="padding: 12px;">ID</th>
+                    <th style="padding: 12px;">Requested By</th>
+                    <th style="padding: 12px;">Item Needed</th>
+                    <th style="padding: 12px;">Quantity</th>
+                    <th style="padding: 12px;">Target NGO</th>
+                    <th style="padding: 12px;">Urgency</th>
+                    <th style="padding: 12px;">Status</th>
+                    <th style="padding: 12px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in requests %}
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 16px 12px; color: var(--text-secondary);">#{{ r.id }}</td>
+                    <td style="padding: 16px 12px;">{{ r.shelter_name }}</td>
+                    <td style="padding: 16px 12px; font-weight: 600;">{{ r.item_needed }}</td>
+                    <td style="padding: 16px 12px;">{{ r.quantity_needed }}</td>
+                    <td style="padding: 16px 12px;">{{ r.ngo_name }}</td>
+                    <td style="padding: 16px 12px;">
+                        <span class="badge-{% if r.urgency == 'low' %}low{% elif r.urgency == 'medium' %}moderate{% else %}high{% endif %}" style="display: inline-block; padding: 6px 12px;">
+                            {{ r.urgency|capitalize }}
+                        </span>
+                    </td>
+                    <td style="padding: 16px 12px;">
+                        <span style="display: inline-block; padding: 6px 12px; border-radius: 4px; font-size: 11px; font-weight: 700; background: {% if r.status == 'pending' %}rgba(245,158,11,0.2); color: var(--accent-warning);{% elif r.status == 'approved' %}rgba(59,130,246,0.2); color: var(--accent-primary);{% elif r.status == 'fulfilled' %}rgba(16,185,129,0.2); color: var(--accent-success);{% else %}rgba(239,68,68,0.2); color: var(--accent-danger);{% endif %}">
+                            {{ r.status|upper }}
+                        </span>
+                    </td>
+                    <td style="padding: 16px 12px;">
+                        {% if r.status == 'pending' %}
+                        <button class="btn btn-outline btn-sm" style="padding: 6px 10px; color: var(--accent-success); border-color: var(--accent-success);"><i class="fa-solid fa-check"></i></button>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

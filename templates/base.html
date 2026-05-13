@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flood Relief & Shelter Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar glass-panel">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-water-arrow-up logo-icon"></i>
+                <h2>FloodTracker</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('dashboard') }}" class="{% if request.path == '/' %}active{% endif %}"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                <li><a href="{{ url_for('shelters') }}" class="{% if request.path == '/shelters' %}active{% endif %}"><i class="fa-solid fa-tents"></i> Shelters</a></li>
+                <li><a href="{{ url_for('evacuees') }}" class="{% if request.path == '/evacuees' %}active{% endif %}"><i class="fa-solid fa-users"></i> Evacuees</a></li>
+                <li><a href="{{ url_for('relief_requests') }}" class="{% if request.path == '/requests' %}active{% endif %}"><i class="fa-solid fa-hand-holding-heart"></i> Relief Requests</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <p>Database Systems Lab</p>
+                <p>Group B - IMS Peshawar</p>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="search-bar glass-panel">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search shelters, evacuees, or incidents...">
+                </div>
+                <div class="user-profile">
+                    <div class="notification-icon">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff" alt="User" class="avatar">
+                </div>
+            </header>
+
+            <div class="content-area">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+<style>
+    /* Custom Map Marker styles for Leaflet */
+    .custom-div-icon {
+        background: transparent;
+        border: none;
+    }
+    .marker-pin {
+        width: 30px;
+        height: 30px;
+        border-radius: 50% 50% 50% 0;
+        background: var(--accent-primary);
+        position: absolute;
+        transform: rotate(-45deg);
+        left: 50%;
+        top: 50%;
+        margin: -15px 0 0 -15px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    }
+    .marker-pin::after {
+        content: '';
+        width: 24px;
+        height: 24px;
+        margin: 3px 0 0 3px;
+        background: var(--bg-secondary);
+        position: absolute;
+        border-radius: 50%;
+    }
+    .custom-div-icon i {
+        position: absolute;
+        width: 22px;
+        font-size: 14px;
+        left: 0;
+        right: 0;
+        margin: 10px auto;
+        text-align: center;
+        color: white;
+        z-index: 1000;
+    }
+    .incident-marker .marker-pin { background: var(--accent-danger); }
+    .shelter-marker .marker-pin { background: var(--accent-success); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Dashboard Overview</h1>
+    <p>Real-time updates on flood relief operations.</p>
+</div>
+
+{% if error %}
+<div class="alert alert-danger glass-panel">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <span>{{ error }}</span>
+</div>
+{% endif %}
+
+<!-- Key Metrics Cards -->
+<div class="stats-grid">
+    <div class="stat-card glass-panel stat-card-primary">
+        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+        <div class="stat-details">
+            <h3>Total Evacuees</h3>
+            <h2>{{ "{:,}".format(stats.total_evacuees | default(0)) }}</h2>
+        </div>
+    </div>
+    
+    <div class="stat-card glass-panel stat-card-success">
+        <div class="stat-icon"><i class="fa-solid fa-tents"></i></div>
+        <div class="stat-details">
+            <h3>Active Shelters</h3>
+            <h2>{{ stats.active_shelters | default(0) }}</h2>
+        </div>
+    </div>
+    
+    <div class="stat-card glass-panel stat-card-warning">
+        <div class="stat-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+        <div class="stat-details">
+            <h3>Pending Requests</h3>
+            <h2>{{ stats.pending_requests | default(0) }}</h2>
+        </div>
+    </div>
+    
+    <div class="stat-card glass-panel stat-card-danger">
+        <div class="stat-icon"><i class="fa-solid fa-cloud-showers-water"></i></div>
+        <div class="stat-details">
+            <h3>Reported Incidents</h3>
+            <h2>{{ stats.total_incidents | default(0) }}</h2>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-content-grid">
+    <!-- Map Section -->
+    <div class="map-section glass-panel">
+        <div class="section-header">
+            <h3><i class="fa-solid fa-map-location-dot"></i> Live Incident & Shelter Map</h3>
+        </div>
+        <div class="map-container" id="map" style="z-index: 1;">
+            <!-- Leaflet Map will be rendered here -->
+        </div>
+    </div>
+
+    <!-- Recent Incidents Feed -->
+    <div class="incidents-feed glass-panel">
+        <div class="section-header">
+            <h3><i class="fa-solid fa-bolt"></i> Recent Incidents</h3>
+            <button class="btn btn-sm btn-outline">View All</button>
+        </div>
+        <div class="feed-list">
+            {% if incidents %}
+                {% for incident in incidents %}
+                <div class="feed-item">
+                    <div class="feed-icon severity-{{ incident.severity }}">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="feed-info">
+                        <h4>{{ incident.district }}, {{ incident.province }}</h4>
+                        <p>{{ incident.description }}</p>
+                    </div>
+                    <span class="badge badge-{{ incident.severity }}">{{ incident.severity|capitalize }}</span>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <p>No recent incidents reported.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize map centered roughly on Pakistan
+        var map = L.map('map').setView([30.3753, 69.3451], 5);
+
+        // Add Dark Theme Map Tiles (CartoDB Dark Matter)
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 20
+        }).addTo(map);
+
+        // Define icon generators
+        function createIcon(type) {
+            let iconClass = type === 'incident' ? 'fa-triangle-exclamation' : 'fa-tents';
+            let markerClass = type === 'incident' ? 'incident-marker' : 'shelter-marker';
+            
+            return L.divIcon({
+                className: 'custom-div-icon ' + markerClass,
+                html: "<div class='marker-pin'></div><i class='fa-solid " + iconClass + "'></i>",
+                iconSize: [30, 42],
+                iconAnchor: [15, 42],
+                popupAnchor: [0, -35]
+            });
+        }
+
+        // Add Shelters to Map
+        {% for s in shelters %}
+            {% if s.latitude and s.longitude %}
+                L.marker([{{ s.latitude }}, {{ s.longitude }}], {icon: createIcon('shelter')})
+                .addTo(map)
+                .bindPopup("<b>{{ s.name }}</b><br>{{ s.city }}, {{ s.province }}<br>Occupancy: {{ s.current_occupancy }}/{{ s.capacity }}");
+            {% endif %}
+        {% endfor %}
+
+        // Add Incidents to Map
+        {% for i in incidents %}
+            {% if i.latitude and i.longitude %}
+                L.marker([{{ i.latitude }}, {{ i.longitude }}], {icon: createIcon('incident')})
+                .addTo(map)
+                .bindPopup("<b>Incident in {{ i.district }}</b><br>Severity: {{ i.severity|capitalize }}<br>{{ i.description }}");
+            {% endif %}
+        {% endfor %}
+    });
+</script>
+{% endblock %}
