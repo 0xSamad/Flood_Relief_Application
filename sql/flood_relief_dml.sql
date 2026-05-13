@@ -6,6 +6,7 @@
 USE flood_relief_db;
 
 -- Loading data into users
+INSERT INTO users (id, name, email, password_hash, role, city, phone, created_at) VALUES (100, 'Abdul Samad', 'abdulsamadorakzai57@gmail.com', 'scrypt:32768:8:1$eKrgPaoOkJxvpNG3$6caef0668d69b428f0f7a54c6f63ea80c21e2de953606d2d74af36ecac312cd450e14d6cc516b07496498b3d519c2abba8bd70d68b18c1037045313a60e604cb', 'admin', 'Peshawar', '+92-000-0000000', NOW());
 INSERT INTO users (id, name, email, password_hash, role, city, phone, created_at) VALUES (1, 'Hassan Malik', '1_hassan.malik@example.com', 'hashedpassword7459', 'viewer', 'Karachi', '+92-332-9286478', '2025-08-26 08:38:24');
 INSERT INTO users (id, name, email, password_hash, role, city, phone, created_at) VALUES (2, 'Bilal Begum', '2_bilal.begum@example.com', 'hashedpassword1158', 'admin', 'Gujranwala', '+92-342-6788363', '2025-09-06 08:38:24');
 INSERT INTO users (id, name, email, password_hash, role, city, phone, created_at) VALUES (3, 'Hira Mehmood', '3_hira.mehmood@example.com', 'hashedpassword3026', 'viewer', 'Mardan', '+92-325-6261294', '2025-06-28 08:38:24');
