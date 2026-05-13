@@ -1,0 +1,101 @@
+id,district,province,severity,description,latitude,longitude,reported_at,reported_by
+1,Mardan,Punjab,high,Heavy rain caused house collapses,28.628126,66.078495,2026-04-22 08:38:24,18
+2,Mardan,KPK,low,Landslide blocked roads,35.511168,68.763173,2025-08-17 08:38:24,13
+3,Peshawar,Punjab,moderate,River overflow causing damage,34.481087,66.721234,2025-05-27 08:38:24,4
+4,Swat,KPK,high,River overflow causing damage,29.653306,68.463777,2025-08-21 08:38:24,13
+5,Kohistan,Balochistan,moderate,Bridge washed away,26.289542,61.089079,2025-09-25 08:38:24,45
+6,Malakand,Punjab,moderate,Heavy rain caused house collapses,27.896203,70.920966,2025-08-02 08:38:24,27
+7,Malakand,Sindh,moderate,Landslide blocked roads,31.50709,62.612887,2026-04-11 08:38:24,13
+8,Nowshera,KPK,high,Flash flood in main market,26.710938,69.209123,2025-08-22 08:38:24,31
+9,Peshawar,KPK,catastrophic,Bridge washed away,26.129135,63.669592,2026-02-22 08:38:24,17
+10,Mardan,Balochistan,catastrophic,Heavy rain caused house collapses,28.077568,61.564584,2026-02-25 08:38:24,8
+11,Nowshera,Gilgit-Baltistan,low,Evacuation needed due to rising water,30.210719,74.925368,2026-01-03 08:38:24,21
+12,Malakand,Balochistan,high,Bridge washed away,32.580105,73.102947,2025-12-03 08:38:24,2
+13,Malakand,Balochistan,high,Heavy rain caused house collapses,25.898722,72.936669,2025-08-06 08:38:24,42
+14,Nowshera,Balochistan,moderate,Heavy rain caused house collapses,26.500554,75.056267,2025-09-25 08:38:24,27
+15,Charsadda,Balochistan,high,Evacuation needed due to rising water,25.467309,66.662845,2026-02-14 08:38:24,10
+16,Mardan,Gilgit-Baltistan,low,Heavy rain caused house collapses,31.340211,63.135908,2025-05-18 08:38:24,26
+17,Malakand,Balochistan,low,Flash flood in main market,36.189752,68.523678,2025-08-25 08:38:24,1
+18,Kohistan,KPK,moderate,Bridge washed away,32.87197,64.85339,2026-01-13 08:38:24,1
+19,Kohistan,KPK,low,Evacuation needed due to rising water,26.429413,69.286149,2025-05-29 08:38:24,9
+20,Chitral,Sindh,catastrophic,Evacuation needed due to rising water,28.011275,67.642683,2026-03-21 08:38:24,21
+21,Mardan,Sindh,catastrophic,Heavy rain caused house collapses,27.381733,63.309438,2025-09-14 08:38:24,26
+22,Chitral,KPK,low,Flash flood in main market,29.309207,66.791022,2026-03-26 08:38:24,22
+23,Nowshera,Punjab,low,Landslide blocked roads,36.845596,74.205638,2025-07-24 08:38:24,23
+24,Shangla,Gilgit-Baltistan,high,Heavy rain caused house collapses,31.949318,68.234202,2026-02-07 08:38:24,32
+25,Malakand,Sindh,catastrophic,River overflow causing damage,27.827245,75.392402,2026-01-29 08:38:24,5
+26,Shangla,Sindh,catastrophic,Heavy rain caused house collapses,35.704853,74.16225,2026-05-02 08:38:24,16
+27,Nowshera,KPK,low,Heavy rain caused house collapses,34.128289,66.089935,2026-04-06 08:38:24,19
+28,D.I. Khan,KPK,low,Evacuation needed due to rising water,35.961791,69.19199,2026-02-11 08:38:24,12
+29,Peshawar,Sindh,low,Heavy rain caused house collapses,28.223319,63.904189,2025-06-25 08:38:24,14
+30,Dir,Balochistan,moderate,Evacuation needed due to rising water,36.409472,62.906139,2026-04-03 08:38:24,21
+31,Swat,Gilgit-Baltistan,high,Bridge washed away,27.807203,62.998287,2025-08-09 08:38:24,31
+32,Kohistan,Punjab,catastrophic,Heavy rain caused house collapses,24.603798,71.463201,2025-07-04 08:38:24,9
+33,Shangla,Punjab,high,River overflow causing damage,35.941958,65.106684,2025-06-05 08:38:24,3
+34,Peshawar,KPK,moderate,Flash flood in main market,28.66816,65.009864,2025-12-10 08:38:24,6
+35,Charsadda,Sindh,catastrophic,River overflow causing damage,28.045497,69.792376,2026-01-08 08:38:24,27
+36,Peshawar,Sindh,high,Flash flood in main market,24.109646,64.203676,2026-03-15 08:38:24,10
+37,Mardan,Sindh,low,Heavy rain caused house collapses,30.741371,73.597321,2025-06-18 08:38:24,30
+38,Shangla,Sindh,catastrophic,Bridge washed away,30.633616,62.762815,2025-12-20 08:38:24,35
+39,Peshawar,Punjab,low,Flash flood in main market,30.994678,69.067519,2025-05-30 08:38:24,3
+40,Swat,Punjab,moderate,Bridge washed away,25.136965,67.193802,2025-06-21 08:38:24,11
+41,D.I. Khan,Balochistan,high,Bridge washed away,27.195342,68.247636,2026-01-03 08:38:24,39
+42,Nowshera,Punjab,low,Heavy rain caused house collapses,26.564343,74.110312,2025-12-01 08:38:24,13
+43,Kohistan,Punjab,moderate,Bridge washed away,29.617691,67.506518,2026-05-05 08:38:24,12
+44,Charsadda,KPK,high,Landslide blocked roads,28.939134,62.150451,2026-01-20 08:38:24,10
+45,Kohistan,Punjab,catastrophic,Evacuation needed due to rising water,25.570967,75.666838,2025-07-27 08:38:24,36
+46,Mardan,Gilgit-Baltistan,high,Bridge washed away,24.49423,68.099237,2026-04-26 08:38:24,11
+47,D.I. Khan,Balochistan,high,Evacuation needed due to rising water,24.219583,65.433012,2025-12-31 08:38:24,42
+48,Kohistan,KPK,catastrophic,River overflow causing damage,32.071395,75.319774,2025-11-09 08:38:24,7
+49,Malakand,Balochistan,moderate,Heavy rain caused house collapses,30.771178,66.4884,2026-04-15 08:38:24,18
+50,Chitral,Balochistan,high,Bridge washed away,34.431785,64.681826,2025-09-11 08:38:24,17
+51,D.I. Khan,Punjab,catastrophic,Evacuation needed due to rising water,28.143569,61.41382,2025-08-12 08:38:24,33
+52,Swat,Sindh,high,Landslide blocked roads,25.419011,72.213594,2025-06-29 08:38:24,42
+53,Mardan,Gilgit-Baltistan,moderate,Heavy rain caused house collapses,36.256486,66.172237,2025-07-08 08:38:24,21
+54,Chitral,KPK,catastrophic,River overflow causing damage,28.098341,73.362255,2025-11-30 08:38:24,16
+55,Nowshera,Punjab,low,Evacuation needed due to rising water,30.040662,71.759675,2025-07-21 08:38:24,46
+56,Nowshera,Sindh,moderate,Bridge washed away,35.724485,66.279115,2026-05-08 08:38:24,17
+57,D.I. Khan,KPK,low,Bridge washed away,28.775824,74.698438,2025-07-01 08:38:24,41
+58,Dir,Balochistan,moderate,Heavy rain caused house collapses,28.195829,66.192897,2025-11-29 08:38:24,16
+59,Dir,KPK,catastrophic,Evacuation needed due to rising water,34.480623,61.097583,2025-11-20 08:38:24,22
+60,Malakand,Sindh,catastrophic,Bridge washed away,32.682202,68.17797,2026-04-05 08:38:24,50
+61,Malakand,Sindh,moderate,Flash flood in main market,31.029864,74.698777,2026-03-15 08:38:24,9
+62,Nowshera,Balochistan,high,Bridge washed away,35.879213,74.636002,2025-10-14 08:38:24,25
+63,Shangla,Gilgit-Baltistan,catastrophic,Flash flood in main market,26.705558,69.666341,2025-11-06 08:38:24,35
+64,Peshawar,KPK,moderate,Bridge washed away,30.017013,74.46073,2025-08-10 08:38:24,28
+65,D.I. Khan,KPK,high,River overflow causing damage,32.975719,75.385259,2026-05-10 08:38:24,20
+66,Mardan,Gilgit-Baltistan,catastrophic,Flash flood in main market,26.222029,69.11676,2025-06-04 08:38:24,28
+67,Shangla,Punjab,low,Bridge washed away,35.447318,69.255518,2026-01-15 08:38:24,2
+68,D.I. Khan,Sindh,catastrophic,Heavy rain caused house collapses,27.43906,72.922352,2025-12-14 08:38:24,19
+69,D.I. Khan,Punjab,low,Bridge washed away,36.250904,69.893088,2025-06-27 08:38:24,42
+70,Kohistan,KPK,low,Landslide blocked roads,28.739958,70.523149,2025-10-27 08:38:24,35
+71,Charsadda,Sindh,moderate,River overflow causing damage,34.007593,68.140056,2025-07-13 08:38:24,3
+72,Shangla,KPK,low,Evacuation needed due to rising water,29.050493,71.645995,2025-08-21 08:38:24,46
+73,Charsadda,Balochistan,high,Landslide blocked roads,27.858467,69.779082,2025-12-31 08:38:24,49
+74,Shangla,Punjab,catastrophic,Landslide blocked roads,30.528626,74.691654,2026-03-18 08:38:24,29
+75,Malakand,Sindh,high,River overflow causing damage,30.010157,74.798238,2025-11-21 08:38:24,49
+76,Charsadda,KPK,moderate,Bridge washed away,26.109311,61.451858,2025-11-14 08:38:24,10
+77,Mardan,Sindh,catastrophic,River overflow causing damage,26.19593,69.070827,2026-04-14 08:38:24,49
+78,Swat,Sindh,low,River overflow causing damage,34.498188,67.441779,2026-02-25 08:38:24,50
+79,Malakand,Balochistan,low,Evacuation needed due to rising water,26.084113,72.016874,2025-11-14 08:38:24,30
+80,Chitral,Sindh,high,Bridge washed away,29.943374,71.002269,2025-09-03 08:38:24,12
+81,D.I. Khan,Balochistan,high,River overflow causing damage,34.606364,67.11884,2025-10-23 08:38:24,10
+82,Kohistan,Punjab,low,River overflow causing damage,35.115021,63.020913,2026-04-19 08:38:24,25
+83,Mardan,Punjab,low,River overflow causing damage,28.649104,67.086558,2025-12-29 08:38:24,27
+84,Mardan,Punjab,high,Landslide blocked roads,30.943397,62.640867,2025-08-16 08:38:24,8
+85,Swat,Sindh,catastrophic,Evacuation needed due to rising water,28.229737,75.06123,2025-09-11 08:38:24,47
+86,D.I. Khan,Balochistan,low,Landslide blocked roads,34.731704,75.597208,2025-09-13 08:38:24,25
+87,Kohistan,Gilgit-Baltistan,high,Landslide blocked roads,36.818733,71.224385,2025-05-20 08:38:24,47
+88,Mardan,Punjab,catastrophic,River overflow causing damage,36.510176,64.747646,2025-08-30 08:38:24,25
+89,Peshawar,Punjab,low,Bridge washed away,34.438385,70.592328,2026-03-19 08:38:24,34
+90,Charsadda,KPK,catastrophic,Flash flood in main market,30.606702,69.045071,2025-05-15 08:38:24,44
+91,Chitral,Sindh,low,River overflow causing damage,35.74733,63.965157,2025-11-22 08:38:24,39
+92,Kohistan,Punjab,low,Heavy rain caused house collapses,24.438504,72.990198,2025-05-24 08:38:24,1
+93,Kohistan,Sindh,moderate,Heavy rain caused house collapses,35.488531,71.012271,2025-05-19 08:38:24,28
+94,Dir,Punjab,catastrophic,Landslide blocked roads,24.766322,64.320391,2025-11-10 08:38:24,11
+95,Chitral,Sindh,low,Heavy rain caused house collapses,31.551214,72.125382,2026-02-03 08:38:24,28
+96,Shangla,Punjab,moderate,Flash flood in main market,33.554323,64.279433,2026-01-21 08:38:24,6
+97,Mardan,Gilgit-Baltistan,moderate,Heavy rain caused house collapses,33.180706,62.547721,2025-11-19 08:38:24,33
+98,Charsadda,Balochistan,low,River overflow causing damage,31.333429,71.357606,2025-12-17 08:38:24,35
+99,Chitral,Sindh,catastrophic,Flash flood in main market,30.162618,66.5948,2026-05-04 08:38:24,47
+100,Swat,Balochistan,moderate,Evacuation needed due to rising water,30.343315,71.95695,2025-05-13 08:38:24,22

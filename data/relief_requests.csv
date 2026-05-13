@@ -1,0 +1,101 @@
+id,shelter_id,ngo_id,item_needed,quantity_needed,urgency,status,created_at
+1,28,12,Antibiotics,105,low,rejected,2026-04-10 08:38:24
+2,48,3,First Aid Kits,220,medium,pending,2026-03-22 08:38:24
+3,11,23,Tents,108,low,pending,2026-04-29 08:38:24
+4,39,50,Bandages,116,medium,fulfilled,2026-04-16 08:38:24
+5,27,45,Bandages,247,critical,rejected,2026-04-18 08:38:24
+6,1,6,Cooking Oil,490,high,approved,2026-03-29 08:38:24
+7,40,30,Cooking Oil,184,low,rejected,2026-03-14 08:38:24
+8,42,17,Painkillers,476,critical,rejected,2026-04-26 08:38:24
+9,14,2,Painkillers,493,critical,approved,2026-04-28 08:38:24
+10,3,29,Rice Bags,470,high,rejected,2026-04-11 08:38:24
+11,3,7,Painkillers,262,critical,approved,2026-05-06 08:38:24
+12,14,36,First Aid Kits,451,high,approved,2026-03-20 08:38:24
+13,21,31,Soap,259,medium,fulfilled,2026-04-14 08:38:24
+14,20,31,Flour Sacks,456,medium,pending,2026-04-21 08:38:24
+15,37,18,Antibiotics,171,low,pending,2026-03-18 08:38:24
+16,5,39,Rice Bags,387,high,fulfilled,2026-04-16 08:38:24
+17,15,33,First Aid Kits,485,low,pending,2026-03-28 08:38:24
+18,24,3,Tents,394,low,approved,2026-04-06 08:38:24
+19,48,38,Water Bottles,77,low,approved,2026-05-13 08:38:24
+20,19,2,Flour Sacks,455,medium,pending,2026-04-10 08:38:24
+21,32,41,Soap,339,high,fulfilled,2026-04-18 08:38:24
+22,21,29,Blankets,80,high,fulfilled,2026-05-05 08:38:24
+23,40,38,Soap,170,medium,fulfilled,2026-03-17 08:38:24
+24,49,48,Rice Bags,448,critical,fulfilled,2026-03-30 08:38:24
+25,14,49,Antibiotics,375,critical,rejected,2026-03-29 08:38:24
+26,15,30,Rice Bags,256,high,rejected,2026-04-08 08:38:24
+27,43,19,Blankets,251,high,approved,2026-04-28 08:38:24
+28,36,26,Rice Bags,159,critical,rejected,2026-04-10 08:38:24
+29,5,44,Flour Sacks,264,low,pending,2026-05-04 08:38:24
+30,41,24,Flour Sacks,133,critical,pending,2026-04-17 08:38:24
+31,22,41,Blankets,425,medium,rejected,2026-04-26 08:38:24
+32,39,34,Rice Bags,206,low,rejected,2026-04-25 08:38:24
+33,10,13,Painkillers,130,critical,approved,2026-04-17 08:38:24
+34,32,26,Tents,278,high,approved,2026-04-28 08:38:24
+35,44,16,Cooking Oil,388,medium,rejected,2026-03-29 08:38:24
+36,33,48,Flour Sacks,94,critical,approved,2026-04-01 08:38:24
+37,47,50,Rice Bags,491,high,fulfilled,2026-04-27 08:38:24
+38,7,26,Cooking Oil,397,low,pending,2026-04-07 08:38:24
+39,12,41,Cooking Oil,372,low,rejected,2026-04-07 08:38:24
+40,11,22,Blankets,94,critical,pending,2026-04-10 08:38:24
+41,10,44,Cooking Oil,495,high,rejected,2026-03-18 08:38:24
+42,28,46,Blankets,60,low,approved,2026-04-17 08:38:24
+43,36,24,Water Bottles,119,low,fulfilled,2026-03-24 08:38:24
+44,37,36,Bandages,360,medium,pending,2026-04-12 08:38:24
+45,18,47,Bandages,457,low,pending,2026-05-02 08:38:24
+46,38,11,Antibiotics,90,low,pending,2026-05-06 08:38:24
+47,4,17,Rice Bags,444,low,approved,2026-03-17 08:38:24
+48,21,1,Rice Bags,201,medium,fulfilled,2026-05-01 08:38:24
+49,38,23,Tents,420,low,fulfilled,2026-04-01 08:38:24
+50,25,44,Soap,165,critical,fulfilled,2026-05-03 08:38:24
+51,32,24,Bandages,457,high,rejected,2026-04-28 08:38:24
+52,24,13,Bandages,299,high,approved,2026-03-23 08:38:24
+53,27,12,Rice Bags,157,low,fulfilled,2026-04-16 08:38:24
+54,15,13,Soap,345,medium,pending,2026-04-25 08:38:24
+55,50,18,Cooking Oil,311,high,rejected,2026-05-09 08:38:24
+56,49,4,Cooking Oil,81,critical,rejected,2026-04-01 08:38:24
+57,42,19,Water Bottles,129,critical,fulfilled,2026-04-13 08:38:24
+58,48,1,Tents,345,high,fulfilled,2026-04-07 08:38:24
+59,23,27,Antibiotics,409,medium,approved,2026-04-08 08:38:24
+60,4,16,Blankets,168,high,pending,2026-03-16 08:38:24
+61,22,13,Antibiotics,247,critical,fulfilled,2026-04-05 08:38:24
+62,49,11,Cooking Oil,199,low,approved,2026-04-03 08:38:24
+63,20,47,Cooking Oil,373,critical,pending,2026-05-03 08:38:24
+64,48,43,First Aid Kits,425,critical,rejected,2026-05-13 08:38:24
+65,35,5,Blankets,477,low,pending,2026-03-14 08:38:24
+66,36,12,Cooking Oil,135,critical,fulfilled,2026-04-06 08:38:24
+67,11,41,Painkillers,111,medium,approved,2026-04-06 08:38:24
+68,42,34,Rice Bags,312,high,rejected,2026-03-20 08:38:24
+69,43,26,Bandages,464,medium,rejected,2026-05-08 08:38:24
+70,32,47,Water Bottles,321,high,pending,2026-05-10 08:38:24
+71,12,21,Soap,228,low,rejected,2026-03-16 08:38:24
+72,33,32,Antibiotics,461,high,rejected,2026-05-03 08:38:24
+73,41,17,Bandages,120,critical,rejected,2026-04-10 08:38:24
+74,9,33,Tents,363,medium,approved,2026-03-24 08:38:24
+75,18,3,First Aid Kits,354,high,rejected,2026-04-30 08:38:24
+76,34,9,Tents,62,critical,rejected,2026-03-19 08:38:24
+77,28,25,Bandages,113,medium,approved,2026-04-22 08:38:24
+78,49,14,Tents,411,medium,fulfilled,2026-05-01 08:38:24
+79,32,16,Tents,150,critical,rejected,2026-04-11 08:38:24
+80,24,37,Antibiotics,371,high,approved,2026-05-09 08:38:24
+81,42,36,Water Bottles,408,medium,rejected,2026-04-08 08:38:24
+82,46,41,Rice Bags,240,high,fulfilled,2026-05-09 08:38:24
+83,24,42,Blankets,454,critical,rejected,2026-04-17 08:38:24
+84,21,2,Water Bottles,351,critical,rejected,2026-05-06 08:38:24
+85,5,13,Bandages,347,high,rejected,2026-05-08 08:38:24
+86,29,32,Rice Bags,56,low,fulfilled,2026-03-23 08:38:24
+87,16,7,Cooking Oil,353,medium,approved,2026-05-05 08:38:24
+88,32,13,Blankets,132,medium,approved,2026-04-27 08:38:24
+89,25,27,Antibiotics,276,critical,fulfilled,2026-05-04 08:38:24
+90,18,49,Flour Sacks,222,critical,pending,2026-04-23 08:38:24
+91,44,28,Water Bottles,218,medium,fulfilled,2026-03-21 08:38:24
+92,26,37,Soap,261,high,approved,2026-04-11 08:38:24
+93,31,1,Water Bottles,239,medium,fulfilled,2026-03-22 08:38:24
+94,48,38,Blankets,86,critical,pending,2026-04-19 08:38:24
+95,33,47,Cooking Oil,455,high,rejected,2026-04-01 08:38:24
+96,27,11,First Aid Kits,188,high,approved,2026-05-04 08:38:24
+97,24,37,Flour Sacks,275,high,pending,2026-03-21 08:38:24
+98,41,43,Bandages,162,low,rejected,2026-05-04 08:38:24
+99,20,48,Water Bottles,108,high,approved,2026-04-22 08:38:24
+100,4,47,Blankets,112,medium,approved,2026-04-23 08:38:24

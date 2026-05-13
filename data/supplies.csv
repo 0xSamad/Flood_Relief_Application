@@ -1,0 +1,101 @@
+id,shelter_id,item_name,category,quantity,last_updated
+1,41,Water Bottles,food,118,2026-04-19 08:38:24
+2,48,Rice Bags,medicine,474,2026-04-20 08:38:24
+3,45,Painkillers,medicine,878,2026-04-29 08:38:24
+4,36,Flour Sacks,sanitation,973,2026-05-10 08:38:24
+5,48,Cooking Oil,food,937,2026-04-25 08:38:24
+6,38,First Aid Kits,medicine,729,2026-04-15 08:38:24
+7,26,Rice Bags,sanitation,511,2026-04-29 08:38:24
+8,50,Flour Sacks,medicine,46,2026-04-24 08:38:24
+9,4,Tents,medicine,466,2026-04-16 08:38:24
+10,23,Water Bottles,other,47,2026-05-11 08:38:24
+11,32,Cooking Oil,sanitation,739,2026-04-13 08:38:24
+12,43,Cooking Oil,medicine,478,2026-05-06 08:38:24
+13,48,Rice Bags,clothing,348,2026-04-15 08:38:24
+14,10,First Aid Kits,clothing,313,2026-05-01 08:38:24
+15,7,Soap,food,812,2026-04-26 08:38:24
+16,44,Painkillers,sanitation,136,2026-04-28 08:38:24
+17,18,Blankets,food,895,2026-05-12 08:38:24
+18,41,Cooking Oil,clothing,559,2026-04-20 08:38:24
+19,29,Cooking Oil,sanitation,858,2026-04-16 08:38:24
+20,10,Painkillers,other,622,2026-04-24 08:38:24
+21,46,Tents,sanitation,988,2026-04-27 08:38:24
+22,28,Cooking Oil,medicine,384,2026-04-28 08:38:24
+23,8,Tents,clothing,862,2026-04-30 08:38:24
+24,28,Water Bottles,sanitation,918,2026-05-01 08:38:24
+25,32,Soap,clothing,695,2026-04-30 08:38:24
+26,18,Soap,sanitation,942,2026-05-01 08:38:24
+27,12,Soap,medicine,670,2026-05-08 08:38:24
+28,9,Flour Sacks,food,652,2026-04-25 08:38:24
+29,29,Water Bottles,clothing,167,2026-04-24 08:38:24
+30,15,Blankets,medicine,344,2026-05-02 08:38:24
+31,26,Blankets,medicine,593,2026-04-23 08:38:24
+32,32,Painkillers,other,596,2026-04-15 08:38:24
+33,21,Tents,sanitation,711,2026-04-18 08:38:24
+34,40,Water Bottles,food,520,2026-04-15 08:38:24
+35,33,First Aid Kits,sanitation,409,2026-05-05 08:38:24
+36,8,Cooking Oil,sanitation,210,2026-04-27 08:38:24
+37,36,First Aid Kits,medicine,10,2026-04-20 08:38:24
+38,29,Soap,food,497,2026-04-26 08:38:24
+39,42,Painkillers,clothing,585,2026-04-27 08:38:24
+40,15,Bandages,other,659,2026-04-16 08:38:24
+41,33,Bandages,other,324,2026-05-05 08:38:24
+42,19,Painkillers,clothing,10,2026-05-11 08:38:24
+43,15,Soap,other,507,2026-04-19 08:38:24
+44,6,Water Bottles,sanitation,42,2026-05-12 08:38:24
+45,46,Flour Sacks,clothing,308,2026-05-04 08:38:24
+46,28,Flour Sacks,sanitation,452,2026-05-13 08:38:24
+47,14,Painkillers,medicine,238,2026-04-26 08:38:24
+48,45,First Aid Kits,medicine,380,2026-05-04 08:38:24
+49,43,Tents,food,518,2026-05-09 08:38:24
+50,3,Tents,medicine,28,2026-04-19 08:38:24
+51,26,Bandages,food,876,2026-04-25 08:38:24
+52,21,Flour Sacks,medicine,247,2026-04-13 08:38:24
+53,15,Tents,other,218,2026-05-05 08:38:24
+54,40,Painkillers,other,77,2026-04-18 08:38:24
+55,26,Soap,food,617,2026-04-18 08:38:24
+56,46,Bandages,food,492,2026-05-07 08:38:24
+57,31,Soap,other,92,2026-05-10 08:38:24
+58,37,Tents,other,495,2026-05-06 08:38:24
+59,34,Tents,medicine,794,2026-04-21 08:38:24
+60,45,Tents,other,468,2026-05-13 08:38:24
+61,5,Cooking Oil,food,337,2026-04-18 08:38:24
+62,39,Painkillers,other,208,2026-05-03 08:38:24
+63,36,Painkillers,other,630,2026-05-11 08:38:24
+64,13,Painkillers,medicine,636,2026-04-23 08:38:24
+65,19,First Aid Kits,food,267,2026-05-12 08:38:24
+66,38,Bandages,clothing,345,2026-05-08 08:38:24
+67,5,Bandages,clothing,388,2026-05-10 08:38:24
+68,35,Water Bottles,medicine,524,2026-05-02 08:38:24
+69,29,Blankets,food,506,2026-05-13 08:38:24
+70,30,Painkillers,other,228,2026-04-16 08:38:24
+71,47,Soap,clothing,774,2026-04-29 08:38:24
+72,34,Cooking Oil,sanitation,127,2026-04-27 08:38:24
+73,34,Cooking Oil,sanitation,111,2026-05-03 08:38:24
+74,44,Soap,food,881,2026-05-04 08:38:24
+75,20,Blankets,other,692,2026-04-16 08:38:24
+76,41,Water Bottles,sanitation,409,2026-05-06 08:38:24
+77,17,Cooking Oil,other,45,2026-04-20 08:38:24
+78,27,Tents,food,903,2026-04-26 08:38:24
+79,43,Bandages,medicine,42,2026-04-28 08:38:24
+80,5,Antibiotics,clothing,150,2026-05-03 08:38:24
+81,46,First Aid Kits,other,31,2026-05-08 08:38:24
+82,30,Antibiotics,clothing,425,2026-05-04 08:38:24
+83,11,Antibiotics,clothing,103,2026-05-11 08:38:24
+84,21,Water Bottles,sanitation,497,2026-05-10 08:38:24
+85,9,Blankets,food,955,2026-04-29 08:38:24
+86,6,Tents,food,517,2026-05-05 08:38:24
+87,32,First Aid Kits,sanitation,880,2026-04-18 08:38:24
+88,50,Rice Bags,medicine,432,2026-04-20 08:38:24
+89,2,Tents,sanitation,892,2026-04-25 08:38:24
+90,8,Painkillers,medicine,926,2026-05-06 08:38:24
+91,27,Bandages,other,49,2026-05-01 08:38:24
+92,27,Soap,medicine,633,2026-05-12 08:38:24
+93,15,Cooking Oil,medicine,620,2026-05-05 08:38:24
+94,26,First Aid Kits,medicine,771,2026-04-15 08:38:24
+95,14,Soap,other,270,2026-04-21 08:38:24
+96,48,Antibiotics,medicine,302,2026-04-23 08:38:24
+97,15,Blankets,food,607,2026-05-12 08:38:24
+98,7,Cooking Oil,medicine,473,2026-04-16 08:38:24
+99,28,First Aid Kits,other,227,2026-04-26 08:38:24
+100,46,Antibiotics,food,346,2026-05-04 08:38:24
