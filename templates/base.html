@@ -13,6 +13,7 @@
 </head>
 <body>
     <div class="app-container">
+        {% if session.user_id %}
         <!-- Sidebar Navigation -->
         <nav class="sidebar glass-panel">
             <div class="sidebar-header">
@@ -30,24 +31,38 @@
                 <p>Group B - IMS Peshawar</p>
             </div>
         </nav>
+        {% endif %}
 
         <!-- Main Content Area -->
-        <main class="main-content">
+        <main class="main-content" {% if not session.user_id %}style="padding-left: 20px; align-items: center; justify-content: center;"{% endif %}>
+            {% if session.user_id %}
             <header class="topbar">
-                <div class="search-bar glass-panel">
+                <form action="{{ url_for('search') }}" method="GET" class="search-bar glass-panel">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Search shelters, evacuees, or incidents...">
-                </div>
+                    <input type="text" name="q" placeholder="Search shelters, evacuees, or incidents..." required>
+                    <button type="submit" style="display: none;"></button>
+                </form>
                 <div class="user-profile">
-                    <div class="notification-icon">
-                        <i class="fa-solid fa-bell"></i>
-                        <span class="badge">3</span>
-                    </div>
-                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff" alt="User" class="avatar">
+                    <span style="font-weight: 600; font-size: 14px;">{{ session.user_name }}</span>
+                    <span class="badge-low" style="background: rgba(59,130,246,0.15); color: var(--accent-primary);">{{ session.user_role|capitalize }}</span>
+                    <img src="https://ui-avatars.com/api/?name={{ session.user_name }}&background=0D8ABC&color=fff" alt="User" class="avatar">
+                    <a href="{{ url_for('logout') }}" style="color: var(--accent-danger); margin-left: 10px;" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
                 </div>
             </header>
+            {% endif %}
 
-            <div class="content-area">
+            <div class="content-area" {% if not session.user_id %}style="width: 100%; max-width: 500px;"{% endif %}>
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="alert alert-{{ category }} glass-panel" style="margin-bottom: 20px; border-left: 4px solid {% if category == 'success' %}var(--accent-success){% elif category == 'warning' %}var(--accent-warning){% else %}var(--accent-danger){% endif %};">
+                          {{ message }}
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+
                 {% block content %}{% endblock %}
             </div>
         </main>

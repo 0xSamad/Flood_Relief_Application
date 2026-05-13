@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-panel" style="padding: 40px; border-radius: 16px; text-align: center;">
+    <div style="margin-bottom: 30px;">
+        <i class="fa-solid fa-water-arrow-up" style="font-size: 40px; color: var(--accent-primary); margin-bottom: 10px;"></i>
+        <h2 style="font-family: var(--font-heading); font-size: 28px;">Welcome Back</h2>
+        <p style="color: var(--text-secondary);">Login to access the Flood Relief Dashboard</p>
+    </div>
+
+    <form method="POST" action="{{ url_for('login') }}" style="display: flex; flex-direction: column; gap: 20px; text-align: left;">
+        <div>
+            <label style="font-weight: 500; font-size: 14px; color: var(--text-secondary);">Email Address</label>
+            <input type="email" name="email" required style="width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); color: white; font-family: var(--font-main);">
+        </div>
+        <div>
+            <label style="font-weight: 500; font-size: 14px; color: var(--text-secondary);">Password</label>
+            <input type="password" name="password" required style="width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); color: white; font-family: var(--font-main);">
+        </div>
+        
+        <button type="submit" class="btn" style="background: var(--accent-primary); color: white; padding: 12px; font-size: 16px; margin-top: 10px;">Sign In</button>
+    </form>
+    
+    <div style="margin-top: 25px; color: var(--text-secondary); font-size: 14px;">
+        Don't have an account? <a href="{{ url_for('register') }}" style="color: var(--accent-primary); text-decoration: none; font-weight: 600;">Register here</a>
+    </div>
+</div>
+{% endblock %}

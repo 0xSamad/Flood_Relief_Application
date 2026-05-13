@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fa-solid fa-magnifying-glass"></i> Search Results</h1>
+    <p>Showing results for: "<span style="color: var(--accent-primary); font-weight: 600;">{{ query }}</span>"</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 30px;">
+    <!-- Shelters Results -->
+    <div class="glass-panel" style="padding: 20px;">
+        <h3 style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-tents" style="color: var(--accent-success);"></i> Shelters ({{ shelters|length }})
+        </h3>
+        {% if shelters %}
+        <ul style="list-style: none;">
+            {% for s in shelters %}
+            <li style="padding: 10px 0; border-bottom: 1px solid var(--glass-border);">
+                <strong>{{ s.name }}</strong> in {{ s.city }} (Status: {{ s.status|upper }})
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p style="color: var(--text-secondary);">No shelters found matching your query.</p>
+        {% endif %}
+    </div>
+
+    <!-- Evacuees Results -->
+    <div class="glass-panel" style="padding: 20px;">
+        <h3 style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-users" style="color: var(--accent-primary);"></i> Evacuees ({{ evacuees|length }})
+        </h3>
+        {% if evacuees %}
+        <ul style="list-style: none;">
+            {% for e in evacuees %}
+            <li style="padding: 10px 0; border-bottom: 1px solid var(--glass-border);">
+                <strong>{{ e.name }}</strong> from {{ e.home_district }} (Health: {{ e.health_status|capitalize }})
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p style="color: var(--text-secondary);">No evacuees found matching your query.</p>
+        {% endif %}
+    </div>
+
+    <!-- Incidents Results -->
+    <div class="glass-panel" style="padding: 20px;">
+        <h3 style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-triangle-exclamation" style="color: var(--accent-danger);"></i> Incidents ({{ incidents|length }})
+        </h3>
+        {% if incidents %}
+        <ul style="list-style: none;">
+            {% for i in incidents %}
+            <li style="padding: 10px 0; border-bottom: 1px solid var(--glass-border);">
+                <strong>{{ i.district }}</strong>: {{ i.description }} (Severity: <span class="badge-{{ i.severity }}">{{ i.severity|capitalize }}</span>)
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p style="color: var(--text-secondary);">No incidents found matching your query.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
