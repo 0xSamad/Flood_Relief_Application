@@ -9,7 +9,9 @@
 <div class="glass-panel" style="padding: 20px;">
     <div class="section-header" style="margin-bottom: 20px; padding: 0; border: none;">
         <h3>Shelter Directory</h3>
+        {% if session.user_role == 'admin' %}
         <button class="btn btn-outline" style="background: var(--accent-primary); border: none;" onclick="document.getElementById('addShelterForm').style.display='block'"><i class="fa-solid fa-plus"></i> Add New Shelter</button>
+        {% endif %}
     </div>
 
     <!-- Add Shelter Form -->

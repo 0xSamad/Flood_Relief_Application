@@ -9,7 +9,9 @@
 <div class="glass-panel" style="padding: 20px;">
     <div class="section-header" style="margin-bottom: 20px; padding: 0; border: none;">
         <h3>Registered Evacuees</h3>
+        {% if session.user_role in ['admin', 'manager'] %}
         <button class="btn btn-outline" style="background: var(--accent-primary); border: none;" onclick="document.getElementById('addEvacueeForm').style.display='block'"><i class="fa-solid fa-user-plus"></i> Register Evacuee</button>
+        {% endif %}
     </div>
 
     <!-- Register Evacuee Form -->

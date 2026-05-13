@@ -94,6 +94,22 @@
     </div>
 </div>
 
+<!-- Analytics Charts Section -->
+<div class="stats-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 30px;">
+    <div class="glass-panel" style="padding: 20px;">
+        <h3 style="margin-bottom: 15px; font-family: var(--font-heading); font-size: 16px;">Evacuee Health Status</h3>
+        <div style="height: 250px; position: relative;">
+            <canvas id="healthChart"></canvas>
+        </div>
+    </div>
+    <div class="glass-panel" style="padding: 20px;">
+        <h3 style="margin-bottom: 15px; font-family: var(--font-heading); font-size: 16px;">Top Shelters by Occupancy</h3>
+        <div style="height: 250px; position: relative;">
+            <canvas id="capacityChart"></canvas>
+        </div>
+    </div>
+</div>
+
 <div class="dashboard-content-grid">
     <!-- Map Section -->
     <div class="map-section glass-panel">
@@ -134,10 +150,87 @@
     </div>
 </div>
 
-<!-- Leaflet JS -->
+<!-- Leaflet JS & Chart.js -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        // --- CHARTS INITIALIZATION ---
+        
+        // Health Chart
+        const healthCtx = document.getElementById('healthChart').getContext('2d');
+        const healthLabels = [
+            {% for h in health_stats %}'{{ h.health_status|capitalize }}',{% endfor %}
+        ];
+        const healthData = [
+            {% for h in health_stats %}{{ h.count }},{% endfor %}
+        ];
+        
+        new Chart(healthCtx, {
+            type: 'doughnut',
+            data: {
+                labels: healthLabels,
+                datasets: [{
+                    data: healthData,
+                    backgroundColor: ['#10B981', '#3B82F6', '#F59E0B', '#EF4444'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right', labels: { color: '#94A3B8' } }
+                }
+            }
+        });
+
+        // Capacity Chart
+        const capacityCtx = document.getElementById('capacityChart').getContext('2d');
+        const capacityLabels = [
+            {% for c in capacity_stats %}'{{ c.name }}',{% endfor %}
+        ];
+        const occupancyData = [
+            {% for c in capacity_stats %}{{ c.current_occupancy }},{% endfor %}
+        ];
+        const totalData = [
+            {% for c in capacity_stats %}{{ c.capacity }},{% endfor %}
+        ];
+
+        new Chart(capacityCtx, {
+            type: 'bar',
+            data: {
+                labels: capacityLabels,
+                datasets: [
+                    {
+                        label: 'Current Occupancy',
+                        data: occupancyData,
+                        backgroundColor: '#3B82F6',
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Total Capacity',
+                        data: totalData,
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8' } },
+                    x: { grid: { display: false }, ticks: { color: '#94A3B8' } }
+                },
+                plugins: {
+                    legend: { labels: { color: '#94A3B8' } }
+                }
+            }
+        });
+
+        // --- MAP INITIALIZATION ---
         // Initialize map centered roughly on Pakistan
         var map = L.map('map').setView([30.3753, 69.3451], 5);
 

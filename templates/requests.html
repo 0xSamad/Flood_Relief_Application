@@ -45,8 +45,12 @@
                         </span>
                     </td>
                     <td style="padding: 16px 12px;">
-                        {% if r.status == 'pending' %}
-                        <button class="btn btn-outline btn-sm" style="padding: 6px 10px; color: var(--accent-success); border-color: var(--accent-success);"><i class="fa-solid fa-check"></i></button>
+                        {% if r.status == 'pending' and session.user_role in ['admin', 'ngo_rep'] %}
+                        <form method="POST" action="{{ url_for('fulfill_request', req_id=r.id) }}" style="margin: 0;">
+                            <button type="submit" class="btn btn-outline btn-sm" style="padding: 6px 10px; color: var(--accent-success); border-color: var(--accent-success);" title="Fulfill Request">
+                                <i class="fa-solid fa-check"></i> Fulfill
+                            </button>
+                        </form>
                         {% endif %}
                     </td>
                 </tr>

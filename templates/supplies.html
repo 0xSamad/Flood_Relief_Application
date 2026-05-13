@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fa-solid fa-box-open"></i> Supply Inventory</h1>
+    <p>Manage and track stock across all shelters.</p>
+</div>
+
+<div class="glass-panel" style="padding: 20px;">
+    <div class="section-header" style="margin-bottom: 20px; padding: 0; border: none;">
+        <h3>Available Supplies</h3>
+        {% if session.user_role in ['admin', 'manager'] %}
+        <button class="btn btn-outline" style="background: var(--accent-primary); border: none;"><i class="fa-solid fa-plus"></i> Add Supply Stock</button>
+        {% endif %}
+    </div>
+    
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 1px solid var(--glass-border); color: var(--text-secondary);">
+                    <th style="padding: 12px;">ID</th>
+                    <th style="padding: 12px;">Shelter</th>
+                    <th style="padding: 12px;">Item Name</th>
+                    <th style="padding: 12px;">Category</th>
+                    <th style="padding: 12px;">Quantity</th>
+                    <th style="padding: 12px;">Last Updated</th>
+                    {% if session.user_role in ['admin', 'manager'] %}
+                    <th style="padding: 12px;">Action (Consume)</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for su in supplies %}
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 16px 12px; color: var(--text-secondary);">#{{ su.id }}</td>
+                    <td style="padding: 16px 12px; color: var(--accent-primary);">{{ su.shelter_name }}</td>
+                    <td style="padding: 16px 12px; font-weight: 600;">{{ su.item_name }}</td>
+                    <td style="padding: 16px 12px;">{{ su.category|capitalize }}</td>
+                    <td style="padding: 16px 12px;">
+                        <span style="font-weight: 700; color: {% if su.quantity < 50 %}var(--accent-danger){% else %}var(--text-primary){% endif %}">
+                            {{ su.quantity }}
+                        </span>
+                    </td>
+                    <td style="padding: 16px 12px; font-size: 13px; color: var(--text-secondary);">{{ su.last_updated }}</td>
+                    
+                    {% if session.user_role in ['admin', 'manager'] %}
+                    <td style="padding: 16px 12px;">
+                        <form method="POST" action="{{ url_for('supplies') }}" style="display: flex; gap: 5px;">
+                            <input type="hidden" name="item_id" value="{{ su.id }}">
+                            <input type="number" name="consume_amount" min="1" max="{{ su.quantity }}" required style="width: 60px; padding: 4px; border-radius: 4px; border: 1px solid var(--glass-border); background: var(--bg-secondary); color: white;">
+                            <button type="submit" class="btn btn-outline btn-sm" style="padding: 4px 8px; color: var(--accent-warning); border-color: var(--accent-warning);"><i class="fa-solid fa-minus"></i> Use</button>
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

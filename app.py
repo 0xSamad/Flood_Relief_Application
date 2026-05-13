@@ -111,7 +111,11 @@ def dashboard():
     # Fetch active shelters for the map
     active_shelters_list = fetch_all("SELECT name, city, latitude, longitude, current_occupancy, capacity FROM shelters WHERE status = 'open'")
 
-    return render_template('dashboard.html', stats=stats, incidents=recent_incidents, shelters=active_shelters_list)
+    # Fetch data for charts
+    health_stats = fetch_all("SELECT health_status, COUNT(*) as count FROM evacuees GROUP BY health_status")
+    capacity_stats = fetch_all("SELECT name, current_occupancy, capacity FROM shelters WHERE status != 'closed' ORDER BY (current_occupancy/capacity) DESC LIMIT 5")
+
+    return render_template('dashboard.html', stats=stats, incidents=recent_incidents, shelters=active_shelters_list, health_stats=health_stats, capacity_stats=capacity_stats)
 
 @app.route('/search')
 @login_required
@@ -204,6 +208,53 @@ def relief_requests():
         ORDER BY r.created_at DESC
     """)
     return render_template('requests.html', requests=requests_data)
+
+@app.route('/requests/fulfill/<int:req_id>', methods=['POST'])
+@login_required
+def fulfill_request(req_id):
+    if session.get('user_role') not in ['admin', 'ngo_rep']:
+        flash("You don't have permission to fulfill requests.", "danger")
+        return redirect(url_for('relief_requests'))
+        
+    conn = get_db_connection()
+    if conn:
+        cursor = conn.cursor()
+        cursor.execute("UPDATE relief_requests SET status = 'fulfilled' WHERE id = %s", (req_id,))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        flash('Request successfully fulfilled!', 'success')
+    return redirect(url_for('relief_requests'))
+
+@app.route('/supplies', methods=['GET', 'POST'])
+@login_required
+def supplies():
+    if request.method == 'POST':
+        item_id = request.form.get('item_id')
+        consume_amount = int(request.form.get('consume_amount', 0))
+        
+        conn = get_db_connection()
+        if conn:
+            cursor = conn.cursor()
+            # Deduct supply
+            cursor.execute("UPDATE supplies SET quantity = quantity - %s, last_updated = NOW() WHERE id = %s AND quantity >= %s", 
+                          (consume_amount, item_id, consume_amount))
+            if cursor.rowcount == 0:
+                flash('Invalid quantity or item.', 'danger')
+            else:
+                flash(f'Successfully consumed {consume_amount} items.', 'success')
+            conn.commit()
+            cursor.close()
+            conn.close()
+            return redirect(url_for('supplies'))
+
+    supplies_data = fetch_all("""
+        SELECT su.*, s.name as shelter_name 
+        FROM supplies su
+        LEFT JOIN shelters s ON su.shelter_id = s.id
+        ORDER BY su.last_updated DESC
+    """)
+    return render_template('supplies.html', supplies=supplies_data)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
