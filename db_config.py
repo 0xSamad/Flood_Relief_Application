@@ -39,3 +39,50 @@ def fetch_all(query, params=None):
         if conn.is_connected():
             cursor.close()
             conn.close()
+def run_migrations():
+    """Automatically runs DDL and DML scripts on startup to ensure the database is populated."""
+    conn = get_db_connection()
+    if not conn:
+        return
+    
+    try:
+        cursor = conn.cursor()
+        base = os.path.dirname(__file__)
+        sql_files = [
+            os.path.join(base, 'sql', 'flood_relief_ddl.sql'),
+            os.path.join(base, 'sql', 'flood_relief_dml.sql'),
+        ]
+
+        for filepath in sql_files:
+            if not os.path.exists(filepath):
+                continue
+            
+            with open(filepath, 'r', encoding='utf-8') as f:
+                raw = f.read()
+
+            current = []
+            for line in raw.splitlines():
+                stripped = line.strip()
+                if not stripped or stripped.startswith('--'):
+                    continue
+                current.append(stripped)
+                if stripped.endswith(';'):
+                    stmt = ' '.join(current)
+                    current = []
+                    if stmt.upper().startswith(('CREATE DATABASE', 'USE ')):
+                        continue
+                    try:
+                        cursor.execute(stmt)
+                    except Error as e:
+                        # Ignore 1050 (Table already exists), 1062 (Duplicate entry), 1061 (Duplicate key)
+                        if e.errno not in (1050, 1062, 1061, 1060):
+                            print(f"Migration Warn: {e}")
+        conn.commit()
+        cursor.close()
+        conn.close()
+        print("✅ Database auto-migration successful.")
+    except Exception as e:
+        print(f"❌ Auto-migration failed: {e}")
+
+# Run migrations automatically when the app starts
+run_migrations()
