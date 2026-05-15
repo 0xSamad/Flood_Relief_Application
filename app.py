@@ -24,6 +24,7 @@ def register():
         password = request.form.get('password')
         city = request.form.get('city')
         phone = request.form.get('phone')
+        role = request.form.get('role', 'viewer')
         
         # In a real app, you'd check if email already exists
         hashed_pw = generate_password_hash(password)
@@ -34,7 +35,7 @@ def register():
             try:
                 cursor.execute(
                     "INSERT INTO users (name, email, password_hash, role, city, phone) VALUES (%s, %s, %s, %s, %s, %s)",
-                    (name, email, hashed_pw, 'viewer', city, phone)
+                    (name, email, hashed_pw, role, city, phone)
                 )
                 conn.commit()
                 flash('Registration successful! Please log in.', 'success')

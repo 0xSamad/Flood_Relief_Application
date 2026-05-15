@@ -59,6 +59,7 @@
 </div>
 {% endif %}
 
+{% if session.user_role == 'admin' %}
 <!-- Key Metrics Cards -->
 <div class="stats-grid">
     <div class="stat-card glass-panel stat-card-primary">
@@ -109,6 +110,18 @@
         </div>
     </div>
 </div>
+{% elif session.user_role == 'ngo_rep' %}
+<!-- NGO Specific Dashboard Header -->
+<div class="glass-panel" style="margin-bottom: 30px; padding: 25px; border-left: 4px solid var(--accent-success); display: flex; align-items: center; justify-content: space-between;">
+    <div>
+        <h3 style="margin-bottom: 10px; font-family: var(--font-heading);"><i class="fa-solid fa-hand-holding-heart" style="color: var(--accent-success); margin-right: 10px;"></i>NGO Partner Portal</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 0;">Thank you for your support. There are currently <strong style="color: white;">{{ stats.pending_requests | default(0) }}</strong> pending relief requests that require fulfillment.</p>
+    </div>
+    <div>
+        <a href="{{ url_for('relief_requests') }}" class="btn" style="background: var(--accent-success); color: white;">View Requests</a>
+    </div>
+</div>
+{% endif %}
 
 <div class="dashboard-content-grid">
     <!-- Map Section -->
@@ -158,77 +171,83 @@
         // --- CHARTS INITIALIZATION ---
         
         // Health Chart
-        const healthCtx = document.getElementById('healthChart').getContext('2d');
-        const healthLabels = [
-            {% for h in health_stats %}'{{ h.health_status|capitalize }}',{% endfor %}
-        ];
-        const healthData = [
-            {% for h in health_stats %}{{ h.count }},{% endfor %}
-        ];
-        
-        new Chart(healthCtx, {
-            type: 'doughnut',
-            data: {
-                labels: healthLabels,
-                datasets: [{
-                    data: healthData,
-                    backgroundColor: ['#10B981', '#3B82F6', '#F59E0B', '#EF4444'],
-                    borderWidth: 0,
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'right', labels: { color: '#94A3B8' } }
+        const healthCanvas = document.getElementById('healthChart');
+        if (healthCanvas) {
+            const healthCtx = healthCanvas.getContext('2d');
+            const healthLabels = [
+                {% for h in health_stats %}'{{ h.health_status|capitalize }}',{% endfor %}
+            ];
+            const healthData = [
+                {% for h in health_stats %}{{ h.count }},{% endfor %}
+            ];
+            
+            new Chart(healthCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: healthLabels,
+                    datasets: [{
+                        data: healthData,
+                        backgroundColor: ['#10B981', '#3B82F6', '#F59E0B', '#EF4444'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right', labels: { color: '#94A3B8' } }
+                    }
                 }
-            }
-        });
+            });
+        }
 
         // Capacity Chart
-        const capacityCtx = document.getElementById('capacityChart').getContext('2d');
-        const capacityLabels = [
-            {% for c in capacity_stats %}'{{ c.name }}',{% endfor %}
-        ];
-        const occupancyData = [
-            {% for c in capacity_stats %}{{ c.current_occupancy }},{% endfor %}
-        ];
-        const totalData = [
-            {% for c in capacity_stats %}{{ c.capacity }},{% endfor %}
-        ];
+        const capacityCanvas = document.getElementById('capacityChart');
+        if (capacityCanvas) {
+            const capacityCtx = capacityCanvas.getContext('2d');
+            const capacityLabels = [
+                {% for c in capacity_stats %}'{{ c.name }}',{% endfor %}
+            ];
+            const occupancyData = [
+                {% for c in capacity_stats %}{{ c.current_occupancy }},{% endfor %}
+            ];
+            const totalData = [
+                {% for c in capacity_stats %}{{ c.capacity }},{% endfor %}
+            ];
 
-        new Chart(capacityCtx, {
-            type: 'bar',
-            data: {
-                labels: capacityLabels,
-                datasets: [
-                    {
-                        label: 'Current Occupancy',
-                        data: occupancyData,
-                        backgroundColor: '#3B82F6',
-                        borderRadius: 4
-                    },
-                    {
-                        label: 'Total Capacity',
-                        data: totalData,
-                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                        borderRadius: 4
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8' } },
-                    x: { grid: { display: false }, ticks: { color: '#94A3B8' } }
+            new Chart(capacityCtx, {
+                type: 'bar',
+                data: {
+                    labels: capacityLabels,
+                    datasets: [
+                        {
+                            label: 'Current Occupancy',
+                            data: occupancyData,
+                            backgroundColor: '#3B82F6',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Total Capacity',
+                            data: totalData,
+                            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                            borderRadius: 4
+                        }
+                    ]
                 },
-                plugins: {
-                    legend: { labels: { color: '#94A3B8' } }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8' } },
+                        x: { grid: { display: false }, ticks: { color: '#94A3B8' } }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#94A3B8' } }
+                    }
                 }
-            }
-        });
+            });
+        }
 
         // --- MAP INITIALIZATION ---
         // Initialize map centered roughly on Pakistan

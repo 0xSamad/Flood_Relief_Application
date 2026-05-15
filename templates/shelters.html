@@ -39,7 +39,9 @@
                     <th style="padding: 12px;">Capacity (Used / Total)</th>
                     <th style="padding: 12px;">Manager</th>
                     <th style="padding: 12px;">Status</th>
+                    {% if session.user_role == 'admin' %}
                     <th style="padding: 12px;">Actions</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -64,9 +66,11 @@
                             {{ s.status|upper }}
                         </span>
                     </td>
+                    {% if session.user_role == 'admin' %}
                     <td style="padding: 16px 12px;">
-                        <button class="btn btn-outline btn-sm" style="padding: 6px 10px;"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn btn-outline btn-sm" style="padding: 6px 10px;" onclick="alert('Edit functionality will be implemented in the next phase.')"><i class="fa-solid fa-pen"></i></button>
                     </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
