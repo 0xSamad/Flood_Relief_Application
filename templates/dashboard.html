@@ -43,6 +43,13 @@
     }
     .incident-marker .marker-pin { background: var(--accent-danger); }
     .shelter-marker .marker-pin { background: var(--accent-success); }
+    
+    /* Force hide the map attribution to fix visual overflow */
+    .leaflet-control-attribution {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
 </style>
 {% endblock %}
 
