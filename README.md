@@ -44,12 +44,14 @@ Flood_Relief_Application/
 │   └── flood_relief_erd.png      ← Entity Relationship Diagram (v1.1)
 │
 ├── docs/
-│   └── NORMALIZATION.md          ← Normalization walkthrough (1NF → 3NF)
+│   ├── NORMALIZATION.md          ← Normalization walkthrough (1NF → 3NF)
+│   └── DATAFLOW.md               ← Dataflow description (M3)
 │
 ├── sql/
-│   └── flood_relief_ddl.sql      ← DDL: CREATE TABLE scripts (M4)
+│   ├── flood_relief_ddl.sql      ← DDL: CREATE TABLE scripts (M4)
+│   └── flood_relief_dml.sql      ← DML: Data Population & Validation (M5)
 │
-└── data/                         ← Synthetic CSV files (M3, coming soon)
+└── data/                         ← Synthetic CSV files (M3)
 ```
 
 ---
@@ -60,9 +62,9 @@ Flood_Relief_Application/
 |---|---|---|
 | M1 | ERD Design & Initial Schema | ✅ Complete |
 | M2 | Normalization (1NF → 3NF) | ✅ Complete |
-| M3 | Dataset Preprocessing & CSVs | 🔄 In Progress |
+| M3 | Dataset Preprocessing & CSVs | ✅ Complete |
 | M4 | DDL Scripts & MySQL Setup | ✅ Complete |
-| M5 | Data Population & Validation | ⬜ Pending |
+| M5 | Data Population & Validation | ✅ Complete |
 
 ---
 
