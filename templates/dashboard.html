@@ -158,7 +158,7 @@
                         <h4>{{ incident.district }}, {{ incident.province }}</h4>
                         <p>{{ incident.description }}</p>
                     </div>
-                    <span class="badge badge-{{ incident.severity }}">{{ incident.severity|capitalize }}</span>
+                    <span class="badge-{{ incident.severity }}">{{ incident.severity|capitalize }}</span>
                 </div>
                 {% endfor %}
             {% else %}
