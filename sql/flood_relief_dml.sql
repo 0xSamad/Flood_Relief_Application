@@ -607,3 +607,22 @@ FROM evacuees e
 LEFT JOIN shelters s ON e.shelter_id = s.id
 WHERE s.id IS NULL;
 
+-- ============================================================
+-- OUTPUTS FOR VALIDATION QUERIES (AS REQUIRED BY MILESTONE 5)
+-- ============================================================
+-- Query A (COUNT *)
+-- users: 50
+-- shelters: 50
+-- evacuees: 100
+-- supplies: 100
+-- ngos: 50
+-- relief_requests: 100
+-- incidents: 99 (1 removed via DELETE operation)
+-- 
+-- Query B (NULL Checks)
+-- shelters_null_city: 0
+-- evacuees_null_name: 0
+--
+-- Query C (JOIN-based FK Check)
+-- Output: 0 rows returned. All evacuees are assigned to a valid, existing shelter.
+-- Foreign Key integrity is confirmed intact.
