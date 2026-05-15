@@ -140,7 +140,17 @@ def dashboard():
     health_stats = fetch_all("SELECT health_status, COUNT(*) as count FROM evacuees GROUP BY health_status")
     capacity_stats = fetch_all("SELECT name, current_occupancy, capacity FROM shelters WHERE status != 'closed' ORDER BY (current_occupancy/capacity) DESC LIMIT 5")
 
-    return render_template('dashboard.html', stats=stats, incidents=recent_incidents, shelters=active_shelters_list, health_stats=health_stats, capacity_stats=capacity_stats)
+    # Fetch shelters with pending relief requests for the map (orange markers)
+    pending_request_shelters = fetch_all("""
+        SELECT s.name as shelter_name, s.city, s.province, s.latitude, s.longitude,
+               COUNT(r.id) as pending_count
+        FROM relief_requests r
+        JOIN shelters s ON r.shelter_id = s.id
+        WHERE r.status = 'pending'
+        GROUP BY s.id, s.name, s.city, s.province, s.latitude, s.longitude
+    """)
+
+    return render_template('dashboard.html', stats=stats, incidents=recent_incidents, shelters=active_shelters_list, health_stats=health_stats, capacity_stats=capacity_stats, pending_request_shelters=pending_request_shelters)
 
 @app.route('/search')
 @login_required

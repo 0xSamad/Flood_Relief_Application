@@ -43,6 +43,7 @@
     }
     .incident-marker .marker-pin { background: var(--accent-danger); }
     .shelter-marker .marker-pin { background: var(--accent-success); }
+    .request-marker .marker-pin { background: var(--accent-warning); }
     
     /* Force hide the map attribution to fix visual overflow */
     .leaflet-control-attribution {
@@ -269,8 +270,8 @@
 
         // Define icon generators
         function createIcon(type) {
-            let iconClass = type === 'incident' ? 'fa-triangle-exclamation' : 'fa-tents';
-            let markerClass = type === 'incident' ? 'incident-marker' : 'shelter-marker';
+            let iconClass = type === 'incident' ? 'fa-triangle-exclamation' : type === 'request' ? 'fa-hand-holding-heart' : 'fa-tents';
+            let markerClass = type === 'incident' ? 'incident-marker' : type === 'request' ? 'request-marker' : 'shelter-marker';
             
             return L.divIcon({
                 className: 'custom-div-icon ' + markerClass,
@@ -296,6 +297,15 @@
                 L.marker([{{ i.latitude }}, {{ i.longitude }}], {icon: createIcon('incident')})
                 .addTo(map)
                 .bindPopup("<b>Incident in {{ i.district }}</b><br>Severity: {{ i.severity|capitalize }}<br>{{ i.description }}");
+            {% endif %}
+        {% endfor %}
+
+        // Add Shelters with Pending Relief Requests to Map (orange markers)
+        {% for r in pending_request_shelters %}
+            {% if r.latitude and r.longitude %}
+                L.marker([{{ r.latitude }}, {{ r.longitude }}], {icon: createIcon('request')})
+                .addTo(map)
+                .bindPopup("<b>⚠️ Aid Needed: {{ r.shelter_name }}</b><br>{{ r.city }}, {{ r.province }}<br><b>{{ r.pending_count }}</b> pending request(s)");
             {% endif %}
         {% endfor %}
     });
