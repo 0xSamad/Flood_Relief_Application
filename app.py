@@ -199,6 +199,10 @@ def shelters():
 @app.route('/evacuees', methods=['GET', 'POST'])
 @login_required
 def evacuees():
+    if session.get('user_role') == 'viewer':
+        flash('Access denied. You do not have permission to view evacuee data.', 'danger')
+        return redirect(url_for('dashboard'))
+
     if request.method == 'POST':
         name = request.form.get('name')
         age = request.form.get('age')
@@ -285,6 +289,10 @@ def fulfill_request(req_id):
 @app.route('/supplies', methods=['GET', 'POST'])
 @login_required
 def supplies():
+    if session.get('user_role') == 'viewer':
+        flash('Access denied. You do not have permission to view supply inventory.', 'danger')
+        return redirect(url_for('dashboard'))
+
     if request.method == 'POST':
         action = request.form.get('action')
         conn = get_db_connection()

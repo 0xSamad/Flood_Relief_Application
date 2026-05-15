@@ -23,8 +23,12 @@
             <ul class="nav-links">
                 <li><a href="{{ url_for('dashboard') }}" class="{% if request.path == '/' %}active{% endif %}"><i class="fa-solid fa-house"></i> Dashboard</a></li>
                 <li><a href="{{ url_for('shelters') }}" class="{% if request.path == '/shelters' %}active{% endif %}"><i class="fa-solid fa-tents"></i> Shelters</a></li>
+                
+                {% if session.user_role in ['admin', 'manager', 'ngo_rep'] %}
                 <li><a href="{{ url_for('evacuees') }}" class="{% if request.path == '/evacuees' %}active{% endif %}"><i class="fa-solid fa-users"></i> Evacuees</a></li>
                 <li><a href="{{ url_for('supplies') }}" class="{% if request.path == '/supplies' %}active{% endif %}"><i class="fa-solid fa-box-open"></i> Supplies</a></li>
+                {% endif %}
+                
                 <li><a href="{{ url_for('relief_requests') }}" class="{% if request.path == '/requests' %}active{% endif %}"><i class="fa-solid fa-hand-holding-heart"></i> Relief Requests</a></li>
                 
                 {% if session.user_role == 'admin' %}
