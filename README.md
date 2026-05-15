@@ -16,7 +16,7 @@ The **Flood Relief & Shelter Tracker** is a database-driven web application desi
 **Tech Stack:**  
 - Backend: Python (Flask)  
 - Database: MySQL (MySQL Workbench)  
-- Mapping: Google Maps API  
+- Mapping: Leaflet.js & OpenStreetMap  
 
 ---
 

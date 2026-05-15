@@ -31,6 +31,6 @@ The core movement of data in the system revolves around **Shelters** as the cent
 The system aggregates the input and processes it to generate actionable outputs for decision-makers:
 
 1. **Capacity Reports:** Query results showing which shelters are `full` versus `open`, allowing authorities to redirect new evacuees to shelters with available capacity.
-2. **Incident Heatmaps:** Exporting the `latitude` and `longitude` from the `incidents` table allows the system (via Google Maps API integration) to visually plot the most affected districts.
+2. **Incident Heatmaps:** Exporting the `latitude` and `longitude` from the `incidents` table allows the system (via Leaflet.js map integration) to visually plot the most affected districts.
 3. **Supply Shortage Alerts:** Reports generated from the `relief_requests` table showing 'critical' urgency items that remain 'pending', enabling NGOs to prioritize their deliveries.
 4. **Demographic Summaries:** Aggregated queries on the `evacuees` table (grouping by `age`, `gender`, and `health_status`) to ensure appropriate medical supplies and facilities are dispatched.
