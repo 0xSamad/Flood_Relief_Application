@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fa-solid fa-handshake"></i> Manage NGOs</h1>
+    <p>Register and manage Non-Governmental Organizations working in relief efforts.</p>
+</div>
+
+<div class="glass-panel" style="padding: 20px;">
+    <div class="section-header" style="margin-bottom: 20px; padding: 0; border: none;">
+        <h3>Registered NGOs</h3>
+        <button class="btn btn-outline" style="background: var(--accent-primary); border: none;" onclick="document.getElementById('addNgoForm').style.display='block'"><i class="fa-solid fa-plus"></i> Register NGO</button>
+    </div>
+
+    <!-- Add NGO Form -->
+    <div id="addNgoForm" style="display: none; background: rgba(15,23,42,0.8); padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid var(--glass-border);">
+        <h4 style="margin-bottom: 15px;">Register New NGO</h4>
+        <form method="POST" action="{{ url_for('admin_ngos') }}" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <input type="hidden" name="action" value="add">
+            <div><label>Organization Name:</label><br><input type="text" name="name" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
+            <div><label>Contact Person:</label><br><input type="text" name="contact_person" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
+            <div><label>Email:</label><br><input type="email" name="email" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
+            <div><label>Phone:</label><br><input type="text" name="phone" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
+            <div style="grid-column: 1 / -1;"><label>Areas Covered (e.g. Sindh, Punjab):</label><br><input type="text" name="areas_covered" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
+            <div style="grid-column: 1 / -1; display: flex; gap: 10px; margin-top: 10px;">
+                <button type="submit" class="btn" style="background: var(--accent-primary); color: white;">Submit Registration</button>
+                <button type="button" class="btn btn-outline" onclick="document.getElementById('addNgoForm').style.display='none'">Cancel</button>
+            </div>
+        </form>
+    </div>
+    
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 1px solid var(--glass-border); color: var(--text-secondary);">
+                    <th style="padding: 12px;">ID</th>
+                    <th style="padding: 12px;">Organization Name</th>
+                    <th style="padding: 12px;">Contact Person</th>
+                    <th style="padding: 12px;">Email & Phone</th>
+                    <th style="padding: 12px;">Areas Covered</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for n in ngos %}
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 16px 12px; color: var(--text-secondary);">#{{ n.id }}</td>
+                    <td style="padding: 16px 12px; font-weight: 600; color: var(--accent-primary);">{{ n.name }}</td>
+                    <td style="padding: 16px 12px;">{{ n.contact_person }}</td>
+                    <td style="padding: 16px 12px;">{{ n.email }}<br><span style="font-size: 12px; color: var(--text-secondary);">{{ n.phone }}</span></td>
+                    <td style="padding: 16px 12px;">{{ n.areas_covered }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

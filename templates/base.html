@@ -26,6 +26,12 @@
                 <li><a href="{{ url_for('evacuees') }}" class="{% if request.path == '/evacuees' %}active{% endif %}"><i class="fa-solid fa-users"></i> Evacuees</a></li>
                 <li><a href="{{ url_for('supplies') }}" class="{% if request.path == '/supplies' %}active{% endif %}"><i class="fa-solid fa-box-open"></i> Supplies</a></li>
                 <li><a href="{{ url_for('relief_requests') }}" class="{% if request.path == '/requests' %}active{% endif %}"><i class="fa-solid fa-hand-holding-heart"></i> Relief Requests</a></li>
+                
+                {% if session.user_role == 'admin' %}
+                <li style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 11px; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1px; padding-left: 15px;">Admin Controls</li>
+                <li><a href="{{ url_for('admin_ngos') }}" class="{% if request.path == '/admin/ngos' %}active{% endif %}"><i class="fa-solid fa-handshake"></i> Manage NGOs</a></li>
+                <li><a href="{{ url_for('admin_users') }}" class="{% if request.path == '/admin/users' %}active{% endif %}"><i class="fa-solid fa-user-shield"></i> Manage Users</a></li>
+                {% endif %}
             </ul>
             <div class="sidebar-footer">
                 <p>Database Systems Lab</p>

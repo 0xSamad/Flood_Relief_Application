@@ -322,5 +322,61 @@ def supplies():
     active_shelters = fetch_all("SELECT id, name FROM shelters WHERE status != 'closed'")
     return render_template('supplies.html', supplies=supplies_data, shelters=active_shelters)
 
+@app.route('/admin/ngos', methods=['GET', 'POST'])
+@login_required
+def admin_ngos():
+    if session.get('user_role') != 'admin':
+        flash('Access denied. Admin privileges required.', 'danger')
+        return redirect(url_for('dashboard'))
+
+    if request.method == 'POST':
+        action = request.form.get('action')
+        if action == 'add':
+            name = request.form.get('name')
+            contact_person = request.form.get('contact_person')
+            email = request.form.get('email')
+            phone = request.form.get('phone')
+            areas_covered = request.form.get('areas_covered')
+            
+            conn = get_db_connection()
+            if conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    "INSERT INTO ngos (name, contact_person, email, phone, areas_covered) VALUES (%s, %s, %s, %s, %s)",
+                    (name, contact_person, email, phone, areas_covered)
+                )
+                conn.commit()
+                cursor.close()
+                conn.close()
+                flash('NGO registered successfully!', 'success')
+            return redirect(url_for('admin_ngos'))
+
+    ngos_data = fetch_all("SELECT * FROM ngos ORDER BY id DESC")
+    return render_template('admin_ngos.html', ngos=ngos_data)
+
+@app.route('/admin/users', methods=['GET', 'POST'])
+@login_required
+def admin_users():
+    if session.get('user_role') != 'admin':
+        flash('Access denied. Admin privileges required.', 'danger')
+        return redirect(url_for('dashboard'))
+
+    if request.method == 'POST':
+        user_id = request.form.get('user_id')
+        new_role = request.form.get('new_role')
+        
+        conn = get_db_connection()
+        if conn:
+            cursor = conn.cursor()
+            cursor.execute("UPDATE users SET role = %s WHERE id = %s", (new_role, user_id))
+            conn.commit()
+            cursor.close()
+            conn.close()
+            flash('User role updated successfully!', 'success')
+        return redirect(url_for('admin_users'))
+
+    users_data = fetch_all("SELECT id, name, email, city, role FROM users ORDER BY id DESC")
+    return render_template('admin_users.html', users=users_data)
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

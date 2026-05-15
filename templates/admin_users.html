@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fa-solid fa-user-shield"></i> User Management</h1>
+    <p>Manage system access and assign roles to registered accounts.</p>
+</div>
+
+<div class="glass-panel" style="padding: 20px;">
+    <div class="section-header" style="margin-bottom: 20px; padding: 0; border: none;">
+        <h3>Registered Users</h3>
+    </div>
+    
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 1px solid var(--glass-border); color: var(--text-secondary);">
+                    <th style="padding: 12px;">ID</th>
+                    <th style="padding: 12px;">User Name</th>
+                    <th style="padding: 12px;">Email</th>
+                    <th style="padding: 12px;">Location</th>
+                    <th style="padding: 12px;">Current Role</th>
+                    <th style="padding: 12px;">Change Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 16px 12px; color: var(--text-secondary);">#{{ u.id }}</td>
+                    <td style="padding: 16px 12px; font-weight: 600;">{{ u.name }}</td>
+                    <td style="padding: 16px 12px;">{{ u.email }}</td>
+                    <td style="padding: 16px 12px;">{{ u.city }}</td>
+                    <td style="padding: 16px 12px;">
+                        <span class="badge-{% if u.role == 'admin' %}high{% elif u.role == 'manager' %}moderate{% elif u.role == 'ngo_rep' %}primary{% else %}low{% endif %}" style="display: inline-block; padding: 6px 12px; {% if u.role == 'ngo_rep' %}background: rgba(59,130,246,0.15); color: var(--accent-primary);{% endif %}">
+                            {{ u.role|capitalize }}
+                        </span>
+                    </td>
+                    <td style="padding: 16px 12px;">
+                        <form method="POST" action="{{ url_for('admin_users') }}" style="display: flex; gap: 5px;">
+                            <input type="hidden" name="user_id" value="{{ u.id }}">
+                            <select name="new_role" style="padding: 6px; border-radius: 4px; border: 1px solid var(--glass-border); background: var(--bg-secondary); color: white;">
+                                <option value="viewer" {% if u.role == 'viewer' %}selected{% endif %}>Viewer</option>
+                                <option value="ngo_rep" {% if u.role == 'ngo_rep' %}selected{% endif %}>NGO Rep</option>
+                                <option value="manager" {% if u.role == 'manager' %}selected{% endif %}>Manager</option>
+                                <option value="admin" {% if u.role == 'admin' %}selected{% endif %}>Admin</option>
+                            </select>
+                            <button type="submit" class="btn btn-outline btn-sm" style="padding: 6px 10px; color: var(--accent-success); border-color: var(--accent-success);"><i class="fa-solid fa-check"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
