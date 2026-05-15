@@ -324,6 +324,15 @@
                 </div>
             </div>
             <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: var(--text-secondary);">Location Coordinates</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" name="latitude" id="incident_lat" placeholder="Latitude" readonly style="width: 50%; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); color: #888; border-radius: 8px; outline: none;">
+                    <input type="text" name="longitude" id="incident_lng" placeholder="Longitude" readonly style="width: 50%; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); color: #888; border-radius: 8px; outline: none;">
+                    <button type="button" class="btn btn-outline" onclick="getUserLocation()" style="white-space: nowrap; padding: 10px; background: rgba(59,130,246,0.2); color: var(--accent-primary); border-color: var(--accent-primary);"><i class="fa-solid fa-location-crosshairs"></i> Detect GPS</button>
+                </div>
+                <small id="loc_status" style="color: var(--accent-warning); display: none; margin-top: 5px;">Detecting location...</small>
+            </div>
+            <div style="margin-bottom: 15px;">
                 <label style="display: block; margin-bottom: 5px; color: var(--text-secondary);">Severity Level</label>
                 <select name="severity" required style="width: 100%; padding: 10px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: white; border-radius: 8px; outline: none;">
                     <option value="low">Low (Minor flooding, roads clear)</option>
@@ -340,5 +349,35 @@
         </form>
     </div>
 </div>
+
+<script>
+function getUserLocation() {
+    const status = document.getElementById('loc_status');
+    const latInput = document.getElementById('incident_lat');
+    const lngInput = document.getElementById('incident_lng');
+    
+    if (!navigator.geolocation) {
+        status.style.display = 'block';
+        status.style.color = 'var(--accent-danger)';
+        status.textContent = 'Geolocation is not supported by your browser';
+    } else {
+        status.style.display = 'block';
+        status.style.color = 'var(--accent-warning)';
+        status.textContent = 'Locating...';
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                latInput.value = position.coords.latitude;
+                lngInput.value = position.coords.longitude;
+                status.style.color = 'var(--accent-success)';
+                status.textContent = 'Location secured!';
+            },
+            () => {
+                status.style.color = 'var(--accent-danger)';
+                status.textContent = 'Unable to retrieve your location';
+            }
+        );
+    }
+}
+</script>
 
 {% endblock %}
