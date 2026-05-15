@@ -161,6 +161,7 @@ def search():
 @login_required
 def shelters():
     if request.method == 'POST':
+        action = request.form.get('action', 'add')
         name = request.form.get('name')
         city = request.form.get('city')
         province = request.form.get('province')
@@ -169,14 +170,22 @@ def shelters():
         conn = get_db_connection()
         if conn:
             cursor = conn.cursor()
-            cursor.execute(
-                "INSERT INTO shelters (name, city, province, capacity) VALUES (%s, %s, %s, %s)",
-                (name, city, province, capacity)
-            )
+            if action == 'add':
+                cursor.execute(
+                    "INSERT INTO shelters (name, city, province, capacity) VALUES (%s, %s, %s, %s)",
+                    (name, city, province, capacity)
+                )
+                flash('Shelter added successfully!', 'success')
+            elif action == 'edit':
+                shelter_id = request.form.get('shelter_id')
+                cursor.execute(
+                    "UPDATE shelters SET name=%s, city=%s, province=%s, capacity=%s WHERE id=%s",
+                    (name, city, province, capacity, shelter_id)
+                )
+                flash('Shelter updated successfully!', 'success')
             conn.commit()
             cursor.close()
             conn.close()
-            flash('Shelter added successfully!', 'success')
             return redirect(url_for('shelters'))
 
     shelters_data = fetch_all("""
@@ -277,19 +286,28 @@ def fulfill_request(req_id):
 @login_required
 def supplies():
     if request.method == 'POST':
-        item_id = request.form.get('item_id')
-        consume_amount = int(request.form.get('consume_amount', 0))
-        
+        action = request.form.get('action')
         conn = get_db_connection()
         if conn:
             cursor = conn.cursor()
-            # Deduct supply
-            cursor.execute("UPDATE supplies SET quantity = quantity - %s, last_updated = NOW() WHERE id = %s AND quantity >= %s", 
-                          (consume_amount, item_id, consume_amount))
-            if cursor.rowcount == 0:
-                flash('Invalid quantity or item.', 'danger')
-            else:
-                flash(f'Successfully consumed {consume_amount} items.', 'success')
+            if action == 'consume':
+                item_id = request.form.get('item_id')
+                consume_amount = int(request.form.get('consume_amount', 0))
+                cursor.execute("UPDATE supplies SET quantity = quantity - %s, last_updated = NOW() WHERE id = %s AND quantity >= %s", 
+                              (consume_amount, item_id, consume_amount))
+                if cursor.rowcount == 0:
+                    flash('Invalid quantity or item.', 'danger')
+                else:
+                    flash(f'Successfully consumed {consume_amount} items.', 'success')
+            elif action == 'add':
+                shelter_id = request.form.get('shelter_id')
+                item_name = request.form.get('item_name')
+                category = request.form.get('category')
+                quantity = int(request.form.get('quantity', 0))
+                cursor.execute("INSERT INTO supplies (shelter_id, item_name, category, quantity, last_updated) VALUES (%s, %s, %s, %s, NOW())", 
+                              (shelter_id, item_name, category, quantity))
+                flash('New supply stock added successfully.', 'success')
+            
             conn.commit()
             cursor.close()
             conn.close()
@@ -301,7 +319,8 @@ def supplies():
         LEFT JOIN shelters s ON su.shelter_id = s.id
         ORDER BY su.last_updated DESC
     """)
-    return render_template('supplies.html', supplies=supplies_data)
+    active_shelters = fetch_all("SELECT id, name FROM shelters WHERE status != 'closed'")
+    return render_template('supplies.html', supplies=supplies_data, shelters=active_shelters)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

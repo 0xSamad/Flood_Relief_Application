@@ -18,6 +18,7 @@
     <div id="addShelterForm" style="display: none; background: rgba(15,23,42,0.8); padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid var(--glass-border);">
         <h4 style="margin-bottom: 15px;">Register New Shelter</h4>
         <form method="POST" action="{{ url_for('shelters') }}" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <input type="hidden" name="action" value="add">
             <div><label>Name:</label><br><input type="text" name="name" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
             <div><label>City:</label><br><input type="text" name="city" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
             <div><label>Province:</label><br><input type="text" name="province" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
@@ -68,9 +69,27 @@
                     </td>
                     {% if session.user_role == 'admin' %}
                     <td style="padding: 16px 12px;">
-                        <button class="btn btn-outline btn-sm" style="padding: 6px 10px;" onclick="alert('Edit functionality will be implemented in the next phase.')"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn btn-outline btn-sm" style="padding: 6px 10px; color: var(--accent-primary); border-color: var(--accent-primary);" onclick="document.getElementById('editShelterForm{{s.id}}').style.display='table-row'"><i class="fa-solid fa-pen"></i></button>
                     </td>
                     {% endif %}
+                </tr>
+                <!-- Edit Shelter Form Row -->
+                <tr id="editShelterForm{{s.id}}" style="display: none; background: rgba(15,23,42,0.9);">
+                    <td colspan="7" style="padding: 20px;">
+                        <h4 style="margin-bottom: 15px; color: var(--accent-primary);">Edit Shelter #{{s.id}}</h4>
+                        <form method="POST" action="{{ url_for('shelters') }}" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <input type="hidden" name="action" value="edit">
+                            <input type="hidden" name="shelter_id" value="{{ s.id }}">
+                            <div><label>Name:</label><br><input type="text" name="name" value="{{ s.name }}" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
+                            <div><label>City:</label><br><input type="text" name="city" value="{{ s.city }}" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
+                            <div><label>Province:</label><br><input type="text" name="province" value="{{ s.province }}" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
+                            <div><label>Capacity:</label><br><input type="number" name="capacity" value="{{ s.capacity }}" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid var(--glass-border); background: transparent; color: white;"></div>
+                            <div style="grid-column: 1 / -1; display: flex; gap: 10px; margin-top: 10px;">
+                                <button type="submit" class="btn" style="background: var(--accent-primary); color: white;">Save Changes</button>
+                                <button type="button" class="btn btn-outline" onclick="document.getElementById('editShelterForm{{s.id}}').style.display='none'">Cancel</button>
+                            </div>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
