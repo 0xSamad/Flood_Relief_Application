@@ -77,9 +77,33 @@ def logout():
     return redirect(url_for('login'))
 
 # --- Main App Routes ---
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 @login_required
 def dashboard():
+    if request.method == 'POST':
+        district = request.form.get('district')
+        province = request.form.get('province')
+        severity = request.form.get('severity')
+        description = request.form.get('description')
+        latitude = request.form.get('latitude')
+        longitude = request.form.get('longitude')
+        
+        # If lat/long are empty, default to some coordinates based on district/province (dummy for now)
+        if not latitude: latitude = 30.0
+        if not longitude: longitude = 70.0
+            
+        conn = get_db_connection()
+        if conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "INSERT INTO incidents (district, province, severity, description, latitude, longitude, reported_by) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                (district, province, severity, description, latitude, longitude, session.get('user_id'))
+            )
+            conn.commit()
+            cursor.close()
+            conn.close()
+            flash('Incident reported successfully. Emergency services have been notified.', 'danger')
+            return redirect(url_for('dashboard'))
     # Fetch summary stats for the dashboard
     stats = {}
     
@@ -198,9 +222,29 @@ def evacuees():
     active_shelters = fetch_all("SELECT id, name FROM shelters WHERE status != 'closed'")
     return render_template('evacuees.html', evacuees=evacuees_data, shelters=active_shelters)
 
-@app.route('/requests')
+@app.route('/requests', methods=['GET', 'POST'])
 @login_required
 def relief_requests():
+    if request.method == 'POST':
+        shelter_id = request.form.get('shelter_id')
+        ngo_id = request.form.get('ngo_id')
+        item_needed = request.form.get('item_needed')
+        quantity_needed = request.form.get('quantity_needed')
+        urgency = request.form.get('urgency')
+        
+        conn = get_db_connection()
+        if conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "INSERT INTO relief_requests (shelter_id, ngo_id, item_needed, quantity_needed, urgency, status) VALUES (%s, %s, %s, %s, %s, 'pending')",
+                (shelter_id, ngo_id, item_needed, quantity_needed, urgency)
+            )
+            conn.commit()
+            cursor.close()
+            conn.close()
+            flash('Relief request submitted successfully!', 'success')
+            return redirect(url_for('relief_requests'))
+
     requests_data = fetch_all("""
         SELECT r.*, s.name as shelter_name, n.name as ngo_name
         FROM relief_requests r
@@ -208,7 +252,9 @@ def relief_requests():
         LEFT JOIN ngos n ON r.ngo_id = n.id
         ORDER BY r.created_at DESC
     """)
-    return render_template('requests.html', requests=requests_data)
+    shelters_list = fetch_all("SELECT id, name FROM shelters WHERE status != 'closed'")
+    ngos_list = fetch_all("SELECT id, name FROM ngos")
+    return render_template('requests.html', requests=requests_data, shelters=shelters_list, ngos=ngos_list)
 
 @app.route('/requests/fulfill/<int:req_id>', methods=['POST'])
 @login_required

@@ -9,7 +9,7 @@
 <div class="glass-panel" style="padding: 20px;">
     <div class="section-header" style="margin-bottom: 20px; padding: 0; border: none;">
         <h3>Active Requests</h3>
-        <button class="btn btn-outline" style="background: var(--accent-primary); border: none;"><i class="fa-solid fa-clipboard-list"></i> Create Request</button>
+        <button class="btn btn-outline" onclick="document.getElementById('requestModal').style.display='flex'" style="background: var(--accent-primary); border: none;"><i class="fa-solid fa-clipboard-list"></i> Create Request</button>
     </div>
     
     <div style="overflow-x: auto;">
@@ -59,4 +59,49 @@
         </table>
     </div>
 </div>
+
+<!-- Create Request Modal -->
+<div id="requestModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
+    <div class="glass-panel" style="width: 500px; padding: 30px; position: relative;">
+        <button onclick="document.getElementById('requestModal').style.display='none'" style="position: absolute; right: 20px; top: 20px; background: transparent; border: none; color: var(--text-secondary); cursor: pointer; font-size: 18px;"><i class="fa-solid fa-times"></i></button>
+        <h2 style="margin-bottom: 20px; font-family: var(--font-heading);">Create Relief Request</h2>
+        <form method="POST" action="{{ url_for('relief_requests') }}">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: var(--text-secondary);">Select Shelter</label>
+                <select name="shelter_id" required style="width: 100%; padding: 10px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: white; border-radius: 8px; outline: none;">
+                    {% for s in shelters %}
+                    <option value="{{ s.id }}">{{ s.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: var(--text-secondary);">Target NGO</label>
+                <select name="ngo_id" required style="width: 100%; padding: 10px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: white; border-radius: 8px; outline: none;">
+                    {% for n in ngos %}
+                    <option value="{{ n.id }}">{{ n.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: var(--text-secondary);">Item Needed</label>
+                <input type="text" name="item_needed" required placeholder="e.g. Blankets, Water Bottles" style="width: 100%; padding: 10px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: white; border-radius: 8px; outline: none;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: var(--text-secondary);">Quantity Needed</label>
+                <input type="number" name="quantity_needed" min="1" required style="width: 100%; padding: 10px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: white; border-radius: 8px; outline: none;">
+            </div>
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 5px; color: var(--text-secondary);">Urgency</label>
+                <select name="urgency" required style="width: 100%; padding: 10px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: white; border-radius: 8px; outline: none;">
+                    <option value="low">Low</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="high">High</option>
+                    <option value="critical">Critical</option>
+                </select>
+            </div>
+            <button type="submit" class="btn" style="width: 100%; background: var(--accent-primary); color: white; padding: 12px; font-size: 16px;">Submit Request</button>
+        </form>
+    </div>
+</div>
+
 {% endblock %}
