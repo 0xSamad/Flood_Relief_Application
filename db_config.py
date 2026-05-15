@@ -7,20 +7,26 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def get_db_connection():
-    """Establishes and returns a connection to the MySQL database."""
-    try:
-        connection = mysql.connector.connect(
-            host=os.getenv('DB_HOST') or os.getenv('MYSQLHOST') or 'localhost',
-            user=os.getenv('DB_USER') or os.getenv('MYSQLUSER') or 'root',
-            password=os.getenv('DB_PASSWORD') or os.getenv('MYSQLPASSWORD') or '',
-            database=os.getenv('DB_NAME') or os.getenv('MYSQLDATABASE') or 'flood_relief_db',
-            port=int(os.getenv('DB_PORT') or os.getenv('MYSQLPORT') or 3306)
-        )
-        if connection.is_connected():
-            return connection
-    except Error as e:
-        print(f"Error connecting to MySQL: {e}")
-        return None
+    """Establishes and returns a connection to the MySQL database with retries."""
+    import time
+    attempts = 5
+    for i in range(attempts):
+        try:
+            connection = mysql.connector.connect(
+                host=os.getenv('DB_HOST') or os.getenv('MYSQLHOST') or 'localhost',
+                user=os.getenv('DB_USER') or os.getenv('MYSQLUSER') or 'root',
+                password=os.getenv('DB_PASSWORD') or os.getenv('MYSQLPASSWORD') or '',
+                database=os.getenv('DB_NAME') or os.getenv('MYSQLDATABASE') or 'flood_relief_db',
+                port=int(os.getenv('DB_PORT') or os.getenv('MYSQLPORT') or 3306),
+                connect_timeout=10
+            )
+            if connection.is_connected():
+                return connection
+        except Error as e:
+            print(f"Attempt {i+1}/{attempts} failed: {e}")
+            if i < attempts - 1:
+                time.sleep(5)
+    return None
 
 def fetch_all(query, params=None):
     """Helper function to fetch all rows for a given query."""
