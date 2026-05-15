@@ -53,7 +53,7 @@ def run_migrations():
         return
     
     try:
-        cursor = conn.cursor()
+        cursor = conn.cursor(buffered=True)
         base = os.path.dirname(__file__)
         sql_files = [
             os.path.join(base, 'sql', 'flood_relief_ddl.sql'),
@@ -80,6 +80,9 @@ def run_migrations():
                         continue
                     try:
                         cursor.execute(stmt)
+                        # Consume any potential results to avoid 'Unread result found'
+                        while cursor.nextset():
+                            pass
                     except Error as e:
                         # Ignore 1050 (Table already exists), 1062 (Duplicate entry), 1061 (Duplicate key)
                         if e.errno not in (1050, 1062, 1061, 1060):
