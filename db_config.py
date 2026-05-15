@@ -10,10 +10,11 @@ def get_db_connection():
     """Establishes and returns a connection to the MySQL database."""
     try:
         connection = mysql.connector.connect(
-            host=os.getenv('DB_HOST', 'localhost'),
-            user=os.getenv('DB_USER', 'root'),          # Change this if your MySQL user is different
-            password=os.getenv('DB_PASSWORD', ''),      # Set your MySQL password in a .env file
-            database=os.getenv('DB_NAME', 'flood_relief_db')
+            host=os.getenv('DB_HOST') or os.getenv('MYSQLHOST') or 'localhost',
+            user=os.getenv('DB_USER') or os.getenv('MYSQLUSER') or 'root',
+            password=os.getenv('DB_PASSWORD') or os.getenv('MYSQLPASSWORD') or '',
+            database=os.getenv('DB_NAME') or os.getenv('MYSQLDATABASE') or 'flood_relief_db',
+            port=int(os.getenv('DB_PORT') or os.getenv('MYSQLPORT') or 3306)
         )
         if connection.is_connected():
             return connection
